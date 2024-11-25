@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { useEffect, useState } from 'react';
 
-const PreLoader = ({ onLoadingComplete, theme = 'dark' }) => {
+const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const PreLoader = ({ onLoadingComplete, theme = 'dark' }) => {
         opacity: 0,
         transition: { duration: 0.5 }
       }}
-      className={`fixed inset-0 z-[100] flex items-center justify-center ${theme === 'dark' ? 'bg-[var(--card-bg)]' : 'bg-[var(--light-card-bg)]'}`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center ${theme === 'sunset' ? 'bg-[var(--card-bg)]' : 'bg-[var(--light-card-bg)]'}`}
       data-theme={theme}
     >
       <div className="flex flex-col items-center gap-8">

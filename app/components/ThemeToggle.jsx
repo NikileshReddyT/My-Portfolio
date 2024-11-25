@@ -2,15 +2,21 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaMoon, FaLaptopCode, FaWater, 
-  FaSun, FaChevronDown, FaBolt 
+  FaLaptopCode, FaWater, 
+  FaSun, FaChevronDown, FaBolt,
+  FaFire
 } from 'react-icons/fa';
 
 const themes = [
   { 
+    name: 'sunset', 
+    icon: <FaSun />, 
+    label: 'Sunset'
+  },
+  { 
     name: 'dark', 
-    icon: <FaMoon />, 
-    label: 'Dark'
+    icon: <FaFire />, 
+    label: 'Crimson'
   },
   { 
     name: 'cyberpunk', 
@@ -23,11 +29,6 @@ const themes = [
     label: 'Ocean'
   },
   { 
-    name: 'sunset', 
-    icon: <FaSun />, 
-    label: 'Sunset'
-  },
-  { 
     name: 'synthwave', 
     icon: <FaBolt />, 
     label: 'Synthwave'
@@ -35,12 +36,12 @@ const themes = [
 ];
 
 const ThemeToggle = () => {
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const [currentTheme, setCurrentTheme] = useState('sunset');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Always start with dark theme if no theme is saved
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    // Always start with sunset theme if no theme is saved
+    const savedTheme = localStorage.getItem('theme') || 'sunset';
     setCurrentTheme(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
