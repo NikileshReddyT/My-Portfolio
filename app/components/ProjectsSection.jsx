@@ -28,58 +28,82 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(var(--neon-rgb),0.25)]"
+              className="group relative rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-2"
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={index * 200}
             >
-              {/* Project Image */}
-              <div className="relative h-60 overflow-hidden">
+              {/* Project Image Container */}
+              <div className="relative aspect-video rounded-t-xl overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-bg)] via-transparent to-transparent opacity-90" />
+                {/* Dark overlay with gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 opacity-70 group-hover:opacity-60 transition-opacity duration-300" />
                 
-                {/* Floating Tech Stack */}
-                <div className="absolute top-4 right-4 flex flex-wrap justify-end gap-2 max-w-[70%]">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2 py-1 text-xs font-medium rounded-md bg-[var(--neon-color)]/90 text-white backdrop-blur-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                {/* Project Title Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                  <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300">
+                    {project.title}
+                  </h3>
+                  {/* Tech Stack Pills */}
+                  <div className="relative">
+                    {/* Expanded view (all technologies) */}
+                    <div className="absolute inset-0 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-xs font-medium rounded-full bg-black/50 text-white border border-white/20 backdrop-blur-sm whitespace-nowrap"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    {/* Default view (first 3 + count) */}
+                    <div className="flex flex-wrap gap-2 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+                      {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-xs font-medium rounded-full bg-black/50 text-white border border-white/20 backdrop-blur-sm whitespace-nowrap"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-black/50 text-white border border-white/20 backdrop-blur-sm whitespace-nowrap">
+                          +{project.technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Project Content */}
-              <div className="p-6 space-y-4">
-                <h3 className="text-2xl font-bold text-[var(--neon-color)] group-hover:text-[var(--neon-color)] transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <p className="text-[var(--text-color)] text-sm leading-relaxed line-clamp-3">
+              <div className="p-6">
+                {/* Project Description */}
+                <p className="text-[var(--text-color)] text-sm leading-relaxed mb-6">
                   {project.description}
                 </p>
 
-                {/* Links */}
-                <div className="flex items-center gap-4 pt-2">
+                {/* Action Links */}
+                <div className="flex items-center gap-4">
                   <a
                     href={project.githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-[var(--neon-color)]/10 text-[var(--neon-color)] hover:bg-[var(--neon-color)]/20 transition-all duration-300 group/link"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg bg-[var(--neon-color)] text-white hover:bg-[var(--neon-color)]/90 transition-all duration-300 group/link"
                   >
                     <FaGithub className="text-lg group-hover/link:rotate-12 transition-transform duration-300" />
-                    <span>Code</span>
+                    <span>View Code</span>
                   </a>
                   <a
                     href={project.demoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-[var(--neon-color)]/20 text-[var(--neon-color)] hover:bg-[var(--neon-color)]/10 transition-all duration-300 group/link"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border-2 border-[var(--neon-color)] text-[var(--neon-color)] hover:bg-[var(--neon-color)]/10 transition-all duration-300 group/link"
                   >
                     <FaExternalLinkAlt className="text-sm group-hover/link:-rotate-12 transition-transform duration-300" />
                     <span>Live Demo</span>

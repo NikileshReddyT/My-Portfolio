@@ -37,7 +37,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <motion.a
             href="#home"
-            className="text-2xl font-bold text-[var(--neon-color)]"
+            className="text-[20px] xs:text-[22px] font-bold text-[var(--neon-color)]"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
