@@ -107,7 +107,7 @@ const HeroSection = () => {
             <a
               href="/Resume_Nikilesh.pdf"
               download
-              className="px-8 py-4 border-2 border-[var(--neon-color)] text-[var(--neon-color)] rounded-lg font-bold text-lg hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all hover:scale-105 flex items-center gap-2"
+              className="px-8 py-4 border-2 border-[var(--neon-color)] text-[var(--neon-color)] rounded-lg font-bold text-lg hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all hover:scale-105 flex items-center justify-center gap-2"
             >
               <FaDownload className="w-5 h-5" />
               Download Resume
