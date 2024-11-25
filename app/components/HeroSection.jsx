@@ -1,6 +1,6 @@
 'use client';
 import { TypeAnimation } from 'react-type-animation';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaDownload } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -105,10 +105,12 @@ const HeroSection = () => {
               View Projects
             </a>
             <a
-              href="#contact"
-              className="px-8 py-4 border-2 border-[var(--neon-color)] text-[var(--neon-color)] rounded-lg font-bold text-lg hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all hover:scale-105"
+              href="/Resume_Nikilesh.pdf"
+              download
+              className="px-8 py-4 border-2 border-[var(--neon-color)] text-[var(--neon-color)] rounded-lg font-bold text-lg hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all hover:scale-105 flex items-center gap-2"
             >
-              Contact Me
+              <FaDownload className="w-5 h-5" />
+              Download Resume
             </a>
           </div>
         </div>
