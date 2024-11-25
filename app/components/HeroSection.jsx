@@ -13,7 +13,7 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-8" data-aos="fade-down" data-aos-delay="200">
           {/* Profile Image */}
-          <div 
+          <div
             className="mx-auto w-40 h-40 rounded-full p-2 mb-8 relative"
             data-aos="fade-down"
             data-aos-delay="200"
@@ -27,7 +27,7 @@ const HeroSection = () => {
           </div>
 
           {/* Name */}
-          <h1 
+          <h1
             className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight"
             data-aos="fade-up"
             data-aos-delay="400"
@@ -37,7 +37,7 @@ const HeroSection = () => {
           </h1>
 
           {/* Role */}
-          <div 
+          <div
             className="text-2xl sm:text-3xl font-medium"
             data-aos="fade-up"
             data-aos-delay="600"
@@ -60,7 +60,7 @@ const HeroSection = () => {
           </div>
 
           {/* Description */}
-          <p 
+          <p
             className="text-lg sm:text-xl max-w-2xl mx-auto text-[var(--text-color)] leading-relaxed"
             data-aos="fade-up"
             data-aos-delay="800"
@@ -105,7 +105,7 @@ const HeroSection = () => {
               View Projects
             </a>
             <a
-              href="/Resume_Nikilesh.pdf"
+              href="/Nikilesh_Resume2.pdf"
               download
               className="px-8 py-4 border-2 border-[var(--neon-color)] text-[var(--neon-color)] rounded-lg font-bold text-lg hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all hover:scale-105 flex items-center justify-center gap-2"
             >
