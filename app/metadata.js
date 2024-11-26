@@ -56,14 +56,14 @@ export const metadata = {
     },
   },
   verification: {
-    google: 'your-google-site-verification', // Add your Google Search Console verification code
+    google: 'qnvlog4h5tTYeyXdIStmcUH8pgCay1ltCM1tiMAexNA', // Add your Google Search Console verification code
   },
   alternates: {
-    canonical: 'https://your-portfolio-url.com',
+    canonical: 'https://nikileshreddy.netlify.app/',
   },
   icons: {
     icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
+    shortcut: '/android-chrome-192x192.png',
     apple: '/apple-touch-icon.png',
     other: {
       rel: 'apple-touch-icon-precomposed',
