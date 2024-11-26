@@ -36,7 +36,6 @@ const HeroSection = () => {
             <span className="text-[var(--text-color)] font-bold"> Reddy</span>
           </h1>
 
-
           {/* Role */}
           <div
             className="text-2xl sm:text-3xl font-medium"
@@ -61,12 +60,15 @@ const HeroSection = () => {
           </div>
 
           {/* Description */}
-          {/* Role Description */}
           <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-[var(--text-color)] mb-6">
-              Passionate Full Stack Developer specializing in building modern web applications with Next.js, React, and cutting-edge technologies.
+            <p className="text-lg text-[var(--text-color)] mb-6 sm:block hidden">
+              Passionate Full Stack Developer specializing in building modern web applications with React, Next.js, and cutting-edge technologies.
               Creating seamless user experiences and robust backend solutions.
             </p>
+            <p className="text-lg text-[var(--text-color)] mb-6 sm:hidden">
+              Full Stack Developer with expertise in  React, Next.js, and backend systems, delivering modern, efficient, and user-focused applications.
+            </p>
+
           </div>
 
           {/* Social Links */}
