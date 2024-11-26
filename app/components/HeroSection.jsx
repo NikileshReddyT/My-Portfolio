@@ -36,13 +36,6 @@ const HeroSection = () => {
             <span className="text-[var(--text-color)] font-bold"> Reddy</span>
           </h1>
 
-          {/* Role Description */}
-          <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-[var(--text-color)] mb-6">
-              Passionate Full Stack Developer specializing in building modern web applications with Next.js, React, and cutting-edge technologies. 
-              Creating seamless user experiences and robust backend solutions.
-            </p>
-          </div>
 
           {/* Role */}
           <div
@@ -68,14 +61,13 @@ const HeroSection = () => {
           </div>
 
           {/* Description */}
-          <p
-            className="text-lg sm:text-xl max-w-2xl mx-auto text-[var(--text-color)] leading-relaxed"
-            data-aos="fade-up"
-            data-aos-delay="800"
-          >
-            Passionate about creating beautiful, functional, and user-friendly applications
-            that solve real-world problems.
-          </p>
+          {/* Role Description */}
+          <div className="max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--text-color)] mb-6">
+              Passionate Full Stack Developer specializing in building modern web applications with Next.js, React, and cutting-edge technologies.
+              Creating seamless user experiences and robust backend solutions.
+            </p>
+          </div>
 
           {/* Social Links */}
           <div className="flex justify-center space-x-6 mt-8">
