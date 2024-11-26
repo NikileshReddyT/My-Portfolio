@@ -1,13 +1,11 @@
 import { Inter } from 'next/font/google';
 import "./globals.css";
 import ClientLayout from './ClientLayout';
+import { metadata as siteMetadata } from './metadata';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  title: 'Portfolio',
-  description: 'My Developer Portfolio',
-};
+export const metadata = siteMetadata;
 
 export default function RootLayout({ children }) {
   return (
