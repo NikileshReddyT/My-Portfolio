@@ -32,9 +32,17 @@ const HeroSection = () => {
             data-aos="fade-up"
             data-aos-delay="400"
           >
-            <span className="text-[var(--neon-color)] font-extrabold">Nikilesh</span>{' '}
-            <span className="text-[var(--text-color)] font-bold">Reddy</span>
+            <span className="text-[var(--neon-color)] font-extrabold">Nikilesh</span>
+            <span className="text-[var(--text-color)] font-bold"> Reddy</span>
           </h1>
+
+          {/* Role Description */}
+          <div className="max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--text-color)] mb-6">
+              Passionate Full Stack Developer specializing in building modern web applications with Next.js, React, and cutting-edge technologies. 
+              Creating seamless user experiences and robust backend solutions.
+            </p>
+          </div>
 
           {/* Role */}
           <div
@@ -70,26 +78,34 @@ const HeroSection = () => {
           </p>
 
           {/* Social Links */}
-          <div
-            className="flex justify-center gap-6 mb-8"
-            data-aos="fade-up"
-            data-aos-delay="1000"
-          >
-            {[
-              { icon: <FaGithub className="w-7 h-7" />, href: "https://github.com/NikileshReddyT" },
-              { icon: <FaLinkedin className="w-7 h-7" />, href: "https://linkedin.com/in/nikilesh-reddy-thatiparthi" },
-              { icon: <FaTwitter className="w-7 h-7" />, href: "https://twitter.com" },
-            ].map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors hover:scale-110"
-              >
-                {social.icon}
-              </a>
-            ))}
+          <div className="flex justify-center space-x-6 mt-8">
+            <a
+              href="https://github.com/NikileshReddyT"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
+              aria-label="GitHub Profile"
+            >
+              <FaGithub className="w-8 h-8" />
+            </a>
+            <a
+              href="https://linkedin.com/in/nikilesh-reddy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
+              aria-label="LinkedIn Profile"
+            >
+              <FaLinkedin className="w-8 h-8" />
+            </a>
+            <a
+              href="https://twitter.com/NikileshReddyT"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
+              aria-label="Twitter Profile"
+            >
+              <FaTwitter className="w-8 h-8" />
+            </a>
           </div>
 
           {/* CTA Buttons */}
