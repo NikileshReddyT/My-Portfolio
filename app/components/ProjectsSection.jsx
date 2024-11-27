@@ -42,7 +42,7 @@ const ProjectsSection = () => {
                 />
                 {/* Dark overlay with gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 opacity-70 group-hover:opacity-60 transition-opacity duration-300" />
-                
+
                 {/* Project Title Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
                   <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300">

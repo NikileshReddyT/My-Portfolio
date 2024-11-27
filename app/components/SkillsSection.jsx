@@ -9,7 +9,7 @@ const SkillsSection = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Title */}
-        <div 
+        <div
           className="text-center mb-16"
           data-aos="fade-down"
           data-aos-duration="1000"
@@ -46,7 +46,8 @@ const SkillsSection = () => {
                     key={skillIndex}
                     data-aos="fade-left"
                     data-aos-duration="600"
-                    data-aos-delay={skillIndex * 100}
+                    data-aos-delay={skillIndex * 50}
+                    data-aos-anchor-placement="center-bottom"
                   >
                     <div className="flex items-center gap-3 mb-2">
                       <span className="text-[var(--neon-color)] text-xl">
@@ -65,7 +66,8 @@ const SkillsSection = () => {
                         style={{ width: `${skill.level}%` }}
                         data-aos="slide-right"
                         data-aos-duration="1000"
-                        data-aos-delay={skillIndex * 100}
+                        data-aos-delay={skillIndex * 50}
+                        data-aos-anchor-placement="center-bottom"
                       />
                     </div>
                   </div>
