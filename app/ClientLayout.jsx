@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import PreLoader from './components/PreLoader';
+import Footer from './components/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -47,6 +48,7 @@ export default function ClientLayout({ children }) {
       ) : (
         <main key="main" className="min-h-screen bg-black">
           {children}
+          <Footer />
         </main>
       )}
     </AnimatePresence>
