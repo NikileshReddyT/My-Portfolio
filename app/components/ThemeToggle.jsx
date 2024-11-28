@@ -59,14 +59,14 @@ const ThemeToggle = () => {
     <div className="relative">
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-[var(--neon-color)] text-[var(--text-color)] hover:bg-[var(--neon-color)] hover:text-[var(--button-text)] transition-all duration-200"
+        className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-black/80 backdrop-blur-sm border border-[var(--neon-color)] text-[var(--text-color)] hover:bg-[var(--neon-color)] hover:text-[var(--button-text)]"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span className="text-xl text-[var(--neon-color)]">{currentThemeData.icon}</span>
+        <span className="text-xl text-[var(--neon-color)] group-hover:text-[var(--button-text)]">{currentThemeData.icon}</span>
         <span className="hidden sm:inline">{currentThemeData.label}</span>
         <FaChevronDown 
-          className={`text-[var(--neon-color)] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          className={`text-[var(--neon-color)] group-hover:text-[var(--button-text)] ${isOpen ? 'rotate-180' : ''}`} 
         />
       </motion.button>
 
@@ -76,20 +76,24 @@ const ThemeToggle = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute right-0 mt-2 w-48 rounded-lg border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-lg overflow-hidden z-50"
+            className="absolute right-0 mt-2 w-48 rounded-lg border border-[var(--neon-color)] bg-black/80 backdrop-blur-sm shadow-lg overflow-hidden z-50"
           >
             {themes.map((theme) => (
               <motion.button
                 key={theme.name}
                 onClick={() => handleThemeChange(theme.name)}
-                className={`w-full flex items-center gap-3 px-4 py-3 transition-all
+                className={`group w-full flex items-center gap-3 px-4 py-3
                   ${currentTheme === theme.name 
                     ? 'bg-[var(--neon-color)] text-[var(--button-text)]' 
                     : 'text-[var(--text-color)] hover:bg-[var(--neon-color)] hover:text-[var(--button-text)]'
                   }`}
                 whileHover={{ x: 5 }}
               >
-                <span className={`text-lg ${currentTheme === theme.name ? 'text-[var(--button-text)]' : 'text-[var(--neon-color)]'}`}>
+                <span className={`text-lg ${
+                  currentTheme === theme.name 
+                    ? 'text-[var(--button-text)]' 
+                    : 'text-[var(--neon-color)] group-hover:text-[var(--button-text)]'
+                }`}>
                   {theme.icon}
                 </span>
                 <span>{theme.label}</span>

@@ -21,6 +21,11 @@ export default function ClientLayout({ children }) {
       duration: 800,
       // once: true,
       easing: 'ease-out',
+      offset: 50,          // smaller offset to trigger earlier
+      delay: 0,           // no initial delay
+      throttleDelay: 50,  // reduce throttle delay
+      mirror: true,       // whether elements should animate out while scrolling past them
+      anchorPlacement: 'top-bottom'  // default anchor placement
     });
 
     // Listen for theme changes
