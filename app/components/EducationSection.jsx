@@ -64,8 +64,8 @@ const EducationSection = () => {
                       data-aos-delay={index * 200}
                     >
                       <span className={`inline-flex items-center text-xs font-semibold mt-2 ${edu.status === 'Current'
-                          ? ' rounded-full text-[var(--text-color)]'
-                          : 'text-[var(--neon-color)]'
+                        ? ' rounded-full text-[var(--text-color)]'
+                        : 'text-[var(--neon-color)]'
                         }`}>
                         {edu.status}
                       </span>
@@ -74,7 +74,7 @@ const EducationSection = () => {
                     {/* Content */}
                     <div className="relative">
                       {/* Header */}
-                      <div className="flex items-start gap-4 mb-4" data-aos="fade-right" data-aos-delay={index * 250}>
+                      <div className="flex items-start gap-4 mb-4" data-aos="fade-right" data-aos-delay={index * 5}>
                         <div className="flex-shrink-0 p-2.5 rounded-lg bg-[var(--neon-color)] bg-opacity-10">
                           <edu.icon className="w-6 h-6 text-[var(--text-color)]" />
                         </div>
@@ -89,7 +89,7 @@ const EducationSection = () => {
                       </div>
 
                       {/* Institution Info */}
-                      <div className="flex items-center gap-2 mb-4" data-aos="fade-left" data-aos-delay={index * 300}>
+                      <div className="flex items-center gap-2 mb-4" data-aos="fade-left" data-aos-delay={index * 5}>
                         <span className="font-medium text-[var(--text-color)]">
                           {edu.institution}
                         </span>
@@ -100,14 +100,14 @@ const EducationSection = () => {
                       </div>
 
                       {/* Duration & GPA */}
-                      <div className="flex items-center gap-4 text-sm text-[var(--text-color)] mb-4" data-aos="fade-up" data-aos-delay={index * 350}>
+                      <div className="flex items-center gap-4 text-sm text-[var(--text-color)] mb-4" data-aos="fade-up" data-aos-delay={index * 5}>
                         <span>{edu.duration}</span>
                         <span className="w-1.5 h-1.5 rounded-full bg-[var(--neon-color)] opacity-40" />
                         <span className="font-medium">GPA: {edu.gpa}</span>
                       </div>
 
                       {/* Coursework */}
-                      <div className="mb-6" data-aos="zoom-out-up" data-aos-delay={index * 400}>
+                      <div className="mb-6" data-aos="zoom-out-up" data-aos-delay={index * 5}>
                         <div className="flex flex-wrap gap-2">
                           {edu.coursework.map((course, i) => (
                             <span
