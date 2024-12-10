@@ -20,6 +20,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', to: 'home', offset: 0 },
+    { name: 'Education', to: 'education', offset: -70 },
     { name: 'Skills', to: 'skills', offset: -70 },
     { name: 'Projects', to: 'projects', offset: -70 },
     { name: 'Contact', to: 'contact', offset: -70 },
