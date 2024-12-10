@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import EducationSection from './components/EducationSection';
 import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
 import ContactSection from './components/ContactSection';
@@ -20,6 +21,7 @@ export default function Home() {
         <Navbar />
         <main className="flex flex-col">
           <HeroSection />
+          <EducationSection />
           <SkillsSection />
           <ProjectsSection />
           <ContactSection />
