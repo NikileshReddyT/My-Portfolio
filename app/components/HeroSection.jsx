@@ -239,7 +239,7 @@ const HeroSection = () => {
               <FaGithub className="w-8 h-8" />
             </a>
             <a
-              href="https://linkedin.com/in/nikilesh-reddy"
+              href="https://linkedin.com/in/nikilesh-reddy-thatiparthi"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
