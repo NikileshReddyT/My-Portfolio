@@ -180,6 +180,8 @@ const HeroSection = () => {
             <span className="text-[var(--text-color)]">I'm a </span>
             <TypeAnimation
               sequence={[
+                'Computer Science Student',
+                1000,
                 'Full Stack Developer',
                 1000,
                 'UI/UX Designer',

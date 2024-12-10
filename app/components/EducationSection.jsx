@@ -112,7 +112,7 @@ const EducationSection = () => {
                           {edu.coursework.map((course, i) => (
                             <span
                               key={i}
-                              className="text-xs px-3 py-1.5 rounded-full border border-[var(--neon-color)] border-opacity-20 text-[var(--text-color)] bg-[var(--neon-color)] bg-opacity-5"
+                              className="text-xs px-3 py-1.5 rounded-full border border-[var(--neon-color)] border-opacity-20 text-[var(--text-color)] bg-[var(--neon-color)] bg-opacity-5 font-bold"
                             >
                               {course}
                             </span>

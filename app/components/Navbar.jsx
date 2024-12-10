@@ -13,9 +13,10 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', to: 'home', offset: 0 },
     { name: 'Education', to: 'education', offset: -70 },
+    { name: 'Experience', to: 'experience', offset: -70 },
     { name: 'Skills', to: 'skills', offset: -70 },
     { name: 'Projects', to: 'projects', offset: -70 },
-    { name: 'Contact', to: 'contact', offset: -70 },
+    { name: 'Contact', to: 'contact', offset: -150 },
   ];
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const Navbar = () => {
               duration={500}
               offset={0}
               className="cursor-pointer"
+              onSetActive={handleSetActive}
             >
               Nikilesh's Portfolio
             </Link>
@@ -147,9 +149,8 @@ const Navbar = () => {
                   offset={item.offset}
                   duration={500}
                   onSetActive={handleSetActive}
-                  className={`cursor-pointer block text-[var(--text-color)] hover:text-[var(--neon-color)] transition-all font-medium transform hover:scale-110 px-4 py-2 rounded-md hover:bg-[var(--hover-bg)] ${
-                    activeSection === item.to ? '!text-[var(--neon-color)]' : ''
-                  }`}
+                  className="cursor-pointer block text-[var(--text-color)] hover:text-[var(--neon-color)] transition-all font-medium transform hover:scale-110 px-4 py-2 rounded-md hover:bg-[var(--hover-bg)]"
+                  activeClass="!text-[var(--neon-color)]"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

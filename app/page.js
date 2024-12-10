@@ -7,6 +7,7 @@ import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
 import ContactSection from './components/ContactSection';
 import ThemeToggle from './components/ThemeToggle';
+import ExperienceSection from './components/ExperienceSection';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <main className="flex flex-col">
           <HeroSection />
           <EducationSection />
+          <ExperienceSection />
           <SkillsSection />
           <ProjectsSection />
           <ContactSection />
