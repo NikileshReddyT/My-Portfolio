@@ -1,12 +1,12 @@
 'use client';
 import { TypeAnimation } from 'react-type-animation';
-import { FaGithub, FaLinkedin, FaTwitter, FaDownload } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaDownload, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const HeroSection = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
+    <header id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--card-bg)] via-transparent to-transparent opacity-40" />
 
@@ -31,7 +31,7 @@ const HeroSection = () => {
             <div className="relative rounded-full p-[1px] bg-[var(--neon-color)] z-[3]">
               <img
                 src="/profile.jpg"
-                alt="Profile"
+                alt="Profile picture of Nikilesh"
                 className="w-full h-full rounded-full object-cover shadow-[0_0_15px_rgba(var(--neon-rgb),0.5)]"
               />
             </div>
@@ -224,37 +224,30 @@ const HeroSection = () => {
 
           {/* Social Links */}
           <div
-            className="flex justify-center space-x-6 mt-8"
+            className="flex justify-center gap-4 mt-8"
             data-aos="fade"
             data-aos-duration="800"
             data-aos-delay="1200"
           >
             <a
-              href="https://github.com/NikileshReddyT"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
-              aria-label="GitHub Profile"
-            >
-              <FaGithub className="w-8 h-8" />
+              href="https://wa.me/918639870053" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
+              <FaWhatsapp className="w-8 h-8" />
             </a>
             <a
-              href="https://linkedin.com/in/nikilesh-reddy-thatiparthi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
-              aria-label="LinkedIn Profile"
-            >
+              href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
+              <FaInstagram className="w-8 h-8" />
+            </a>
+            <a
+              href="https://twitter.com/NikileshReddyT" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
+              <FaTwitter className="w-8 h-8" />
+            </a>
+            <a
+              href="https://linkedin.com/in/nikilesh-reddy-thatiparthi" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
               <FaLinkedin className="w-8 h-8" />
             </a>
             <a
-              href="https://twitter.com/NikileshReddyT"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
-              aria-label="Twitter Profile"
-            >
-              <FaTwitter className="w-8 h-8" />
+              href="https://github.com/NikileshReddyT" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
+              <FaGithub className="w-8 h-8" />
             </a>
           </div>
 
@@ -282,7 +275,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
 

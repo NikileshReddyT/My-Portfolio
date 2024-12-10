@@ -1,5 +1,6 @@
 'use client';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import Image from 'next/image';
 import { projects } from '../data/projects';
 
 const ProjectsSection = () => {
@@ -35,10 +36,12 @@ const ProjectsSection = () => {
             >
               {/* Project Image Container */}
               <div className="relative aspect-video rounded-t-xl overflow-hidden">
-                <img
+                <Image
                   src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  alt={`Image of ${project.title} project`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Dark overlay with gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40 opacity-70 group-hover:opacity-60 transition-opacity duration-300" />

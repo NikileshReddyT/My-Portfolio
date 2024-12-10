@@ -21,7 +21,7 @@ export const metadata = {
   openGraph: {
     title: 'Nikilesh Reddy | Full Stack Developer',
     description: 'Full Stack Developer specializing in Next.js, React, and modern web technologies. Creating innovative solutions with a focus on user experience and performance.',
-    url: 'https://nikileshreddy.netlify.app/',
+    url: 'https://nikileshreddyt.tech/',
     siteName: 'Nikilesh Reddy Portfolio',
     images: [
       {
@@ -53,10 +53,10 @@ export const metadata = {
     },
   },
   verification: {
-    google: 'qnvlog4h5tTYeyXdIStmcUH8pgCay1ltCM1tiMAexNA',
+    google: 'BXvVuO8UsZkzRZ2OHebvc4ATK-T6Rta_twGqzfZSWI',
   },
   alternates: {
-    canonical: 'https://nikileshreddy.netlify.app/',
+    canonical: 'https://nikileshreddyt.tech',
   },
   icons: {
     icon: [
