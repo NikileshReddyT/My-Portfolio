@@ -82,21 +82,92 @@ const ThemeToggle = () => {
               <motion.button
                 key={theme.name}
                 onClick={() => handleThemeChange(theme.name)}
-                className={`group w-full flex items-center gap-3 px-4 py-3
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  
+                  // Update for the entire dropdown
+                  const dropdown = e.currentTarget.parentElement;
+                  if (dropdown) {
+                    const dropdownRect = dropdown.getBoundingClientRect();
+                    const dropdownX = e.clientX - dropdownRect.left;
+                    const dropdownY = e.clientY - dropdownRect.top;
+                    dropdown.style.setProperty("--dropdown-x", `${dropdownX}px`);
+                    dropdown.style.setProperty("--dropdown-y", `${dropdownY}px`);
+                  }
+                  
+                  e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+                  e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+                }}
+                className={`group relative w-full flex items-center gap-3 px-4 py-3 
                   ${currentTheme === theme.name 
-                    ? 'bg-[var(--neon-color)] text-[var(--button-text)]' 
-                    : 'text-[var(--text-color)] hover:bg-[var(--neon-color)] hover:text-[var(--button-text)]'
-                  }`}
-                whileHover={{ x: 5 }}
-              >
-                <span className={`text-lg ${
-                  currentTheme === theme.name 
                     ? 'text-[var(--button-text)]' 
-                    : 'text-[var(--neon-color)] group-hover:text-[var(--button-text)]'
-                }`}>
+                    : 'text-[var(--text-color)]'
+                  }`}
+                whileHover={{ 
+                  scale: 1.05,
+                  transition: {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }
+                }}
+              >
+                {currentTheme === theme.name && (
+                  <motion.div
+                    className="absolute inset-0 bg-[var(--neon-color)] opacity-80"
+                    layoutId="activeTab"
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 25
+                    }}
+                  />
+                )}
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: `radial-gradient(
+                      circle 12rem at var(--mouse-x) var(--mouse-y),
+                      var(--neon-color) 0%,
+                      transparent 80%
+                    )`
+                  }}
+                />
+                <motion.div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-300"
+                  style={{
+                    background: `radial-gradient(
+                      circle 16rem at var(--dropdown-x) var(--dropdown-y),
+                      var(--neon-color) 0%,
+                      transparent 90%
+                    )`
+                  }}
+                />
+                <motion.span
+                  className={`text-lg relative z-10 ${
+                    currentTheme === theme.name 
+                      ? 'text-[var(--button-text)]' 
+                      : 'text-[var(--text-color)]'
+                  }`}
+                  whileHover={{
+                    y: [0, -5, 0],
+                    transition: {
+                      duration: 0.3,
+                      ease: "easeInOut"
+                    }
+                  }}
+                >
                   {theme.icon}
+                </motion.span>
+                <span className={`relative z-10 
+                  ${currentTheme === theme.name 
+                    ? 'text-[var(--button-text)]' 
+                    : 'text-[var(--text-color)]'
+                  }`}>
+                  {theme.label}
                 </span>
-                <span>{theme.label}</span>
               </motion.button>
             ))}
           </motion.div>

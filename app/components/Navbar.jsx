@@ -61,7 +61,7 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -84,7 +84,7 @@ const Navbar = () => {
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
+              className="lg:hidden text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors"
             >
               {isOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
             </button>
@@ -103,7 +103,7 @@ const Navbar = () => {
             duration: 0.2,
             ease: "easeOut"
           }}
-          className="md:hidden backdrop-blur-md"
+          className="lg:hidden backdrop-blur-md"
         >
           <motion.div 
             className="px-2 pt-2 pb-3 space-y-8 sm:px-3 bg-[var(--card-bg)] flex flex-col justify-center items-center"

@@ -56,7 +56,7 @@
 }
 
 [data-theme='synthwave'] {
-  --neon-color: #ff00ff;
+  --neon-color: #cd7a27;
   --neon-rgb: 255, 0, 255;
   --card-bg: rgba(20, 0, 30, 0.3);
   --text-color: #ffd4ff;
