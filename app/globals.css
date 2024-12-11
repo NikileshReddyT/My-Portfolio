@@ -29,10 +29,10 @@
 }
 
 [data-theme='cyberpunk'] {
-  --neon-color: #00ff9d;
+  --neon-color: #00ff9de6;
   --neon-rgb: 0, 255, 157;
   --card-bg: rgba(0, 20, 40, 0.3);
-  --text-color: #00ff9d;
+  --text-color: #f2f2f2;
   --input-bg: rgba(0, 20, 40, 0.4);
   --button-text: #000000;
 }

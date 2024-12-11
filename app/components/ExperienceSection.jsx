@@ -48,7 +48,7 @@ const ExperienceSection = () => {
                 <div className="flex flex-wrap gap-2 text-sm text-[var(--text-color)] mb-4" data-aos="fade-up" data-aos-delay={index * 300}>
                   <h4 className="w-full font-semibold text-[var(--neon-color)]">Learned:</h4>
                   {exp.learned.map((skill, i) => (
-                    <span key={i} className="flex items-center gap-2 px-3 py-1 bg-[var(--neon-color)] font-bold bg-opacity-20 rounded-full">
+                    <span key={i} className="flex items-center gap-2 px-3 py-1 bg-[var(--neon-color)] font-medium bg-opacity-20 rounded-full">
                       <FaLaptopCode className="w-4 h-4 text-[var(--text-color)]" />
                       {skill}
                     </span>
