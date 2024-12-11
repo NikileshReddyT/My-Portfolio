@@ -14,8 +14,8 @@ export const skillCategories = [
     skills: [
       { name: 'JavaScript', icon: FaCode, level: 95 },
       { name: 'Python', icon: FaPython, level: 90 },
-      { name: 'Java', icon: FaJava, level: 80 },
-      { name: 'C', icon: FaCode, level: 75 },
+      { name: 'Java', icon: FaJava, level: 90 },
+      { name: 'C', icon: FaCode, level: 80 },
       { name: 'Dart', icon: FaCode, level: 70 },
     ]
   },

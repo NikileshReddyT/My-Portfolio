@@ -180,7 +180,7 @@ const HeroSection = () => {
             <span className="text-[var(--text-color)]">I'm a </span>
             <TypeAnimation
               sequence={[
-                'Computer Science Student',
+                'CS Student',
                 1000,
                 'Full Stack Developer',
                 1000,
@@ -234,7 +234,7 @@ const HeroSection = () => {
               <FaWhatsapp className="w-8 h-8" />
             </a>
             <a
-              href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
+              href="https://instagram.com/nikilesh_reddy_t/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
               <FaInstagram className="w-8 h-8" />
             </a>
             <a

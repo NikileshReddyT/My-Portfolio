@@ -76,5 +76,5 @@ export const experienceData = [
     ],
     icon: FaProjectDiagram,
     color: "from-red-500/20 to-yellow-500/20"
-  }
+  },
 ];

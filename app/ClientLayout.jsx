@@ -8,24 +8,30 @@ import 'aos/dist/aos.css';
 
 export default function ClientLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'sunset';
+    }
+    return 'sunset';
+  });
+  const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
   useEffect(() => {
     // Initialize theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'sunset';
     setCurrentTheme(savedTheme);
     document.documentElement.setAttribute('data-theme', savedTheme);
+    setIsThemeLoaded(true);
 
     // Initialize AOS
     AOS.init({
       duration: 800,
-      // once: true,
       easing: 'ease-out',
-      offset: 50,          // smaller offset to trigger earlier
-      delay: 0,           // no initial delay
-      throttleDelay: 50,  // reduce throttle delay
-      mirror: true,       // whether elements should animate out while scrolling past them
-      anchorPlacement: 'top-bottom'  // default anchor placement
+      offset: 50,
+      delay: 0,
+      throttleDelay: 50,
+      mirror: true,
+      anchorPlacement: 'top-bottom'
     });
 
     // Listen for theme changes
@@ -45,6 +51,10 @@ export default function ClientLayout({ children }) {
 
     return () => observer.disconnect();
   }, []);
+
+  if (!isThemeLoaded) {
+    return null; 
+  }
 
   return (
     <AnimatePresence mode="wait">

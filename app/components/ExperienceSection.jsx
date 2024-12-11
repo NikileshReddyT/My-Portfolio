@@ -7,7 +7,7 @@ const ExperienceSection = () => {
     <section id="experience" className="py-20">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-[var(--neon-color)] mb-12">Experience</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 [&>*:last-child:nth-child(odd)]:md:col-span-2 [&>*:last-child:nth-child(odd)]:md:mx-auto [&>*:last-child:nth-child(odd)]:md:max-w-[calc(50%-1rem)]">
           {experienceData.map((exp, index) => (
             <div
               key={index}
@@ -39,7 +39,7 @@ const ExperienceSection = () => {
                 </div>
                 <div className="flex flex-col gap-2 text-sm text-[var(--text-color)] mb-4" data-aos="fade-up" data-aos-delay={index * 250}>
                   {exp.responsibilities.map((task, i) => (
-                    <span key={i} className="flex items-start gap-2">
+                    <span key={i} className="flex items-start gap-2" data-aos="fade-left" data-aos-delay={index * 100}>
                       <FaBriefcase className="w-4 h-4 text-[var(--neon-color)]" />
                       {task}
                     </span>
@@ -48,7 +48,7 @@ const ExperienceSection = () => {
                 <div className="flex flex-wrap gap-2 text-sm text-[var(--text-color)] mb-4" data-aos="fade-up" data-aos-delay={index * 300}>
                   <h4 className="w-full font-semibold text-[var(--neon-color)]">Learned:</h4>
                   {exp.learned.map((skill, i) => (
-                    <span key={i} className="flex items-center gap-2 px-3 py-1 bg-[var(--neon-color)] bg-opacity-20 rounded-full">
+                    <span key={i} className="flex items-center gap-2 px-3 py-1 bg-[var(--neon-color)] font-bold bg-opacity-20 rounded-full">
                       <FaLaptopCode className="w-4 h-4 text-[var(--text-color)]" />
                       {skill}
                     </span>
