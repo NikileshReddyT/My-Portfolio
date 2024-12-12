@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaLaptopCode, FaWater, 
-  FaSun, FaChevronDown, FaBolt,
+  FaSun, FaChevronDown, FaLeaf,
   FaFire
 } from 'react-icons/fa';
 
@@ -30,8 +30,8 @@ const themes = [
   },
   { 
     name: 'synthwave', 
-    icon: <FaBolt />, 
-    label: 'Synthwave'
+    icon: <FaLeaf />, 
+    label: 'Amber'
   }
 ];
 
