@@ -100,7 +100,7 @@ const ProjectsSection = () => {
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg bg-[var(--neon-color)] text-white hover:bg-[var(--neon-color)]/90 transition-all duration-300 group/link"
                   >
                     <FaGithub className="text-lg group-hover/link:rotate-12 transition-transform duration-300" />
-                    <span>View Code</span>
+                    <span className='text-[13px] sm:text-sm'>View Code</span>
                   </a>
                   <a
                     href={project.demoLink}
