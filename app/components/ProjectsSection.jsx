@@ -29,7 +29,7 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="group relative rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-2"
+              className="neon-card group relative rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-2"
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={index * 200}

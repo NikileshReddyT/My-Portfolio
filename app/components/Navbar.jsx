@@ -37,7 +37,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'backdrop-blur-md bg-[var(--card-bg)] shadow-lg' : ''
+        isScrolled ? 'backdrop-blur-md bg-[#0014284d] shadow-lg' : ''
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,8 +71,8 @@ const Navbar = () => {
                 offset={item.offset}
                 duration={500}
                 onSetActive={handleSetActive}
-                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-medium ${
-                  activeSection === item.to ? '!text-[var(--neon-color)]' : ''
+                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold ${
+                  activeSection === item.to ? '!text-[var(--neon-color)] font-black' : ''
                 }`}
               >
                 {item.name}
@@ -106,7 +106,7 @@ const Navbar = () => {
           className="lg:hidden backdrop-blur-md"
         >
           <motion.div 
-            className="px-2 pt-2 pb-3 space-y-8 sm:px-3 bg-[var(--card-bg)] flex flex-col justify-center items-center"
+            className="px-2 pt-2 pb-3 space-y-8 sm:px-3 bg-[#0014284d] flex flex-col justify-center items-center"
             initial="closed"
             animate={isOpen ? "open" : "closed"}
             variants={{
@@ -150,7 +150,7 @@ const Navbar = () => {
                   duration={500}
                   onSetActive={handleSetActive}
                   className="cursor-pointer block text-[var(--text-color)] hover:text-[var(--neon-color)] transition-all font-medium transform hover:scale-110 px-4 py-2 rounded-md hover:bg-[var(--hover-bg)]"
-                  activeClass="!text-[var(--neon-color)]"
+                  activeClass="!text-[var(--neon-color)] font-black text-lg"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

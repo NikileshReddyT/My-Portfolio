@@ -26,7 +26,7 @@ const SkillsSection = () => {
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              className="neon-card p-6 rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)]"
+              className="neon-card p-6 rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] "
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={categoryIndex * 200}

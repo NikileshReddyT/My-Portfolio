@@ -50,10 +50,10 @@ const EducationSection = () => {
                 </div>
 
                 {/* Card Container */}
-                <div className={`w-full md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
+                <div className={` w-full md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
                   }`}>
                   {/* Card */}
-                  <div className="group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--neon-rgb),0.15)]">
+                  <div className="neon-card group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--neon-rgb),0.15)]">
                     {/* Card Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-color)] opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-300" />
 
