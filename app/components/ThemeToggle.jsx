@@ -53,7 +53,8 @@ const ThemeToggle = () => {
     setIsOpen(false);
   };
 
-  const currentThemeData = themes.find(theme => theme.name === currentTheme);
+  // Added fallback to prevent undefined error
+  const currentThemeData = themes.find(theme => theme.name === currentTheme) || themes[0];
 
   return (
     <div className="relative">
