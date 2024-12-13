@@ -12,10 +12,10 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', to: 'home', offset: 0 },
-    { name: 'Education', to: 'education', offset: -70 },
-    { name: 'Experience', to: 'experience', offset: -70 },
-    { name: 'Skills', to: 'skills', offset: -70 },
-    { name: 'Projects', to: 'projects', offset: -70 },
+    { name: 'Education', to: 'education', offset: -80 },
+    { name: 'Experience', to: 'experience', offset: -60 },
+    { name: 'Skills', to: 'skills', offset: -50 },
+    { name: 'Projects', to: 'projects', offset: -50 },
     { name: 'Contact', to: 'contact', offset: -150 },
   ];
 
@@ -68,7 +68,7 @@ const Navbar = () => {
                 to={item.to}
                 spy={true}
                 smooth={true}
-                offset={item.offset}
+                offset={item.offset +20}
                 duration={500}
                 onSetActive={handleSetActive}
                 className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold ${
