@@ -29,31 +29,55 @@ const EducationSection = () => {
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-[var(--neon-color)] to-transparent opacity-50" />
+          {/* Timeline Line - Only visible on md and up */}
+          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-[var(--neon-color)] to-transparent opacity-50" />
 
           {/* Education Cards */}
           <div className="relative">
             {educationData.map((edu, index) => (
               <div
                 key={index}
-                className={`relative flex items-start mb-16 last:mb-0 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
+                className={`relative mb-8 md:mb-16 last:mb-0 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  } ${index === 0 ? '' : 'md:flex'} flex flex-col`}
                 data-aos="fade-up"
                 data-aos-duration="900"
                 data-aos-easing="ease-out"
                 data-aos-delay={index * 150}
               >
-                {/* Timeline Node */}
-                <div className="hidden md:block absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--card-bg)] border-2 border-[var(--neon-color)] z-10 mt-8">
+                {/* Timeline Node - Only visible on md and up */}
+                <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--card-bg)] border-2 border-[var(--neon-color)] z-10 mt-8">
                   <div className="absolute inset-0 rounded-full bg-[var(--neon-color)] animate-ping opacity-20" />
                 </div>
 
-                {/* Card Container */}
-                <div className={` w-full md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'
-                  }`}>
+                {/* Mobile Timeline Indicator */}
+                <div className="md:hidden flex items-center gap-3 mb-3 relative">
+                  <div className="timeline-dot w-3 h-3 rounded-full bg-[var(--neon-color)] shrink-0 relative z-10">
+                    <div className="absolute inset-0 rounded-full bg-[var(--neon-color)] opacity-20" />
+                  </div>
+                  <div className="relative flex-grow h-0.5">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-color)] to-transparent opacity-50" />
+                    <div className="absolute inset-0 bg-[var(--neon-color)]" 
+                      style={{
+                        animation: 'shimmer 3s ease-in-out infinite',
+                        maskImage: 'linear-gradient(to right, transparent, white, transparent)',
+                        WebkitMaskImage: 'linear-gradient(to right, transparent, white, transparent)'
+                      }}
+                    />
+                  </div>
+                  <div className="writing-mode-vertical text-sm font-medium text-[var(--neon-color)] opacity-75">
+                    {edu.year}
+                  </div>
+                </div>
+
+                {/* Card Container with Enhanced Mobile Styles */}
+                <div className="w-full md:w-[calc(50%-2rem)] px-0 md:px-12 relative">
+                  {/* Mobile Year Indicator */}
+                  <div className="md:hidden absolute -left-2 top-1/2 -translate-y-1/2 -translate-x-full text-sm font-medium text-[var(--neon-color)] opacity-75 writing-mode-vertical transform -rotate-180 whitespace-nowrap">
+                    {edu.year}
+                  </div>
+
                   {/* Card */}
-                  <div className="neon-card group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--neon-rgb),0.15)]">
+                  <div className="neon-card group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] px-3 py-4 md:p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--neon-rgb),0.15)]">
                     {/* Card Background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[var(--neon-color)] opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-300" />
 

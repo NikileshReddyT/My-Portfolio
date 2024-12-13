@@ -11,7 +11,7 @@ const ExperienceSection = () => {
           {experienceData.map((exp, index) => (
             <div
               key={index}
-              className="neon-card group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] p-6 transition-all duration-300 hover:shadow-[0_0_30px_rgba(var(--neon-rgb),0.15)]"
+              className="neon-card group relative overflow-hidden rounded-2xl border border-[var(--neon-color)] bg-[var(--card-bg)] p-6 transition-all duration-300 "
               data-aos="fade-up"
               data-aos-duration="900"
               data-aos-easing="ease-out"
