@@ -3,6 +3,12 @@ import "./globals.css";
 import ClientLayout from './ClientLayout';
 import { metadata as siteMetadata } from './metadata';
 import GoogleAnalytics from './components/GoogleAnalytics';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+
+
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,6 +23,8 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ClientLayout>
           {children}
+          <Analytics />
+          <SpeedInsights />
         </ClientLayout>
       </body>
     </html>
