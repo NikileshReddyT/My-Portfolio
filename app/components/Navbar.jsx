@@ -12,10 +12,10 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', to: 'home', offset: 0 },
-    { name: 'Education', to: 'education', offset: -80 },
+    { name: 'Education', to: 'education', offset: -100 },
     { name: 'Experience', to: 'experience', offset: -60 },
     { name: 'Skills', to: 'skills', offset: -50 },
-    { name: 'Projects', to: 'projects', offset: -50 },
+    { name: 'Projects', to: 'projects', offset: -70 },
     { name: 'Contact', to: 'contact', offset: -150 },
   ];
 
@@ -36,9 +36,8 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'backdrop-blur-md bg-[#0014284d] shadow-lg' : ''
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'backdrop-blur-md bg-[#0014284d] shadow-lg' : ''
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -68,12 +67,11 @@ const Navbar = () => {
                 to={item.to}
                 spy={true}
                 smooth={true}
-                offset={item.offset +20}
+                offset={item.offset + 20}
                 duration={500}
                 onSetActive={handleSetActive}
-                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold ${
-                  activeSection === item.to ? '!text-[var(--neon-color)] font-black' : ''
-                }`}
+                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold ${activeSection === item.to ? '!text-[var(--neon-color)] font-black' : ''
+                  }`}
               >
                 {item.name}
               </Link>
@@ -105,7 +103,7 @@ const Navbar = () => {
           }}
           className="lg:hidden backdrop-blur-md"
         >
-          <motion.div 
+          <motion.div
             className="px-2 pt-2 pb-3 space-y-8 sm:px-3 bg-[#0014284d] flex flex-col justify-center items-center"
             initial="closed"
             animate={isOpen ? "open" : "closed"}
