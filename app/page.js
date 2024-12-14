@@ -9,6 +9,7 @@ import ContactSection from './components/ContactSection';
 import ThemeToggle from './components/ThemeToggle';
 import ExperienceSection from './components/ExperienceSection';
 import { motion, AnimatePresence } from 'framer-motion';
+import ChatBot from "./components/ChatBot";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       >
         <Navbar />
         <main className="flex flex-col">
+          <ChatBot/>
           <HeroSection />
           <EducationSection />
           <ExperienceSection />
