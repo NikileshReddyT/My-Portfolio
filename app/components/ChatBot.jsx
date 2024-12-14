@@ -269,31 +269,40 @@ const ChatBot = () => {
                                     style={dracula}
                                     language={match[1]}
                                     PreTag="div"
-                                    className="rounded-lg my-2"
+                                    className="rounded-lg my-2 text-xs md:text-sm max-h-[300px] overflow-auto"
+                                    customStyle={{
+                                      maxWidth: '100%',
+                                      overflowX: 'auto',
+                                    }}
                                   >
                                     {String(children).replace(/\n$/, '')}
                                   </SyntaxHighlighter>
                                 ) : (
-                                  <code {...props} className={`${className} bg-black/20 px-1 py-0.5 rounded`}>
+                                  <code {...props} className={`${className} bg-black/20 px-1 py-0.5 rounded text-xs md:text-sm break-all`}>
                                     {children}
                                   </code>
                                 )
                               },
-                              p: ({children}) => <p className="whitespace-pre-wrap mb-2">{children}</p>,
-                              ul: ({children}) => <ul className="list-disc ml-4 mb-2">{children}</ul>,
-                              ol: ({children}) => <ol className="list-decimal ml-4 mb-2">{children}</ol>,
+                              p: ({children}) => <p className="whitespace-pre-wrap mb-2 text-xs md:text-sm break-words">{children}</p>,
+                              ul: ({children}) => <ul className="list-disc ml-4 mb-2 text-xs md:text-sm">{children}</ul>,
+                              ol: ({children}) => <ol className="list-decimal ml-4 mb-2 text-xs md:text-sm">{children}</ol>,
                               li: ({children}) => <li className="mb-1">{children}</li>,
                               a: ({href, children}) => (
-                                <a href={href} className="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                                <a 
+                                  href={href} 
+                                  className="text-blue-400 hover:underline break-all text-xs md:text-sm" 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                >
                                   {children}
                                 </a>
                               )
                             }}
-                            className="text-sm"
+                            className="text-sm break-words"
                           >
                             {message.parts[0].text}
                           </ReactMarkdown>
-                          <span className="text-xs opacity-70 mt-1 block">
+                          <span className="text-[10px] md:text-xs opacity-70 mt-1 block">
                             {new Date().toLocaleTimeString()}
                           </span>
                         </div>
