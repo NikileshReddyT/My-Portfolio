@@ -101,7 +101,7 @@
 
   --glow-color: rgba(65, 72, 72, 0.836);
 
-  --neon-color: #00d2ff;
+  --neon-color: #00d0ff;
 
   --neon-rgb: 0, 210, 255;
 
@@ -118,11 +118,11 @@
 
 [data-theme='synthwave'] {
 
-  --glow-color: rgba(61, 49, 30, 0.705);
+  --glow-color: rgba(61, 49, 30, 0.736);
 
   --neon-color: #cd7a27;
 
-  --neon-rgb: 255, 0, 255;
+  --neon-rgb:  205, 122, 0;
 
   --card-bg: rgba(73, 65, 12, 0.119);
 
@@ -134,49 +134,6 @@
 
 }
 
-
-[data-theme="theme-1"] {
-
-  --glow-color: rgba(255, 0, 0, 0.3);
-
-  --gradient-primary: linear-gradient(45deg, #ff0000, #ff3333, #ff6666);
-
-  --neon-color: #ff0000;
-
-}
-
-
-[data-theme="theme-2"] {
-
-  --glow-color: rgba(0, 255, 255, 0.3);
-
-  --gradient-primary: linear-gradient(45deg, #00ffff, #33ffff, #66ffff);
-
-  --neon-color: #00ffff;
-
-}
-
-
-[data-theme="theme-3"] {
-
-  --glow-color: rgba(255, 0, 255, 0.3);
-
-  --gradient-primary: linear-gradient(45deg, #ff00ff, #ff33ff, #ff66ff);
-
-  --neon-color: #ff00ff;
-
-}
-
-
-[data-theme="theme-4"] {
-
-  --glow-color: rgba(255, 165, 0, 0.3);
-
-  --gradient-primary: linear-gradient(45deg, #ffa500, #ffb733, #ffc966);
-
-  --neon-color: #ffa500;
-
-}
 
 
 /* Base styles for all elements */
@@ -219,17 +176,7 @@ body {
 
 /* Enhanced Neon Text Effects */
 
-h1,
-
-h2,
-
-h3,
-
-h4,
-
-h5,
-
-h6 {
+h1,h2,h3,h4,h5,h6 {
 
   color: #fff;
 
@@ -255,13 +202,7 @@ h6 {
 }
 
 
-p,
-
-span,
-
-li,
-
-a {
+p,span,li,a {
 
   color: var(--text-color);
 
@@ -410,50 +351,6 @@ a {
 .animate-border-flow-up {
 
   animation: border-flow-up 2s ease-in-out infinite;
-
-}
-
-
-/* Neon Elements */
-
-.neon-element {
-
-  position: relative;
-
-  border: 1px solid var(--neon-color);
-
-  box-shadow: var(--neon-shadow);
-
-  background: rgba(0, 0, 0, 0.9);
-
-  transition: all 0.3s ease;
-
-}
-
-
-.neon-element:hover {
-
-  box-shadow: 0 0 15px var(--glow-color);
-
-  transform: translateY(-2px);
-
-}
-
-
-.neon-text {
-
-  color: var(--neon-color);
-
-  text-shadow: var(--neon-text-shadow);
-
-}
-
-
-.neon-border {
-
-  border: 1px solid var(--neon-color);
-
-  box-shadow: var(--neon-shadow);
 
 }
 
