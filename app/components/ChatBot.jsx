@@ -182,7 +182,7 @@ const ChatBot = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col items-center justify-center h-full text-center space-y-6 p-4"
+                    className="flex flex-col items-center justify-start h-full text-left space-y-6 p-4"
                   >
                     <motion.div
                       animate={{
@@ -218,7 +218,7 @@ const ChatBot = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1 * index }}
-                          className="bg-[var(--card-bg)] border border-[var(--neon-color)]/30 p-3 rounded-xl flex items-center gap-3 hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-shadow cursor-pointer"
+                          className="bg-[var(--card-bg)] border border-[var(--neon-color)]/30 p-3 rounded-xl flex flex-col md:flex-row items-center gap-3 hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-shadow cursor-pointer"
                           onClick={() => {
                             const questions = [
                               "What are your technical skills?",
@@ -232,7 +232,7 @@ const ChatBot = () => {
                           }}
                         >
                           <span className="text-2xl">{item.icon}</span>
-                          <span className="text-sm text-[var(--text-color)]/80">{item.text}</span>
+                          <span className="text-sm text-[var(--text-color)]/80 text-center">{item.text}</span>
                         </motion.div>
                       ))}
                     </div>
