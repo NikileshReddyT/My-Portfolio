@@ -14,6 +14,7 @@ const ChatBot = () => {
     const [showInitialButton, setShowInitialButton] = useState(true);
     const [isPillExpanded, setIsPillExpanded] = useState(false);
     const [dragStartX, setDragStartX] = useState(null);
+    const [messageTimestamps, setMessageTimestamps] = useState({});
     const messagesEndRef = useRef(null);
     const chatContainerRef = useRef(null);
     const { messages, isLoading, error, sendMessage } = useChat();
@@ -24,6 +25,17 @@ const ChatBot = () => {
 
     useEffect(() => {
         scrollToBottom();
+    }, [messages]);
+
+    // Track timestamps when new messages are added
+    useEffect(() => {
+        const lastMessage = messages[messages.length - 1];
+        if (lastMessage && !messageTimestamps[messages.length - 1]) {
+            setMessageTimestamps(prev => ({
+                ...prev,
+                [messages.length - 1]: new Date().toLocaleTimeString()
+            }));
+        }
     }, [messages]);
 
     // Initial visibility timer
@@ -254,8 +266,8 @@ const ChatBot = () => {
                                             >
                                                 <div
                                                     className={`max-w-[80%] p-3 rounded-2xl ${message.role === 'user'
-                                                            ? 'bg-[var(--neon-color)] text-[var(--button-text)] rounded-tr-none'
-                                                            : 'bg-[var(--card-bg)] border border-[var(--neon-color)]/30 text-[var(--text-color)] rounded-tl-none'
+                                                        ? 'bg-[var(--neon-color)] text-[var(--button-text)] rounded-tr-none'
+                                                        : 'bg-[var(--card-bg)] border border-[var(--neon-color)]/30 text-[var(--text-color)] rounded-tl-none'
                                                         }`}
                                                 >
                                                     <ReactMarkdown
@@ -302,7 +314,7 @@ const ChatBot = () => {
                                                         {message.parts[0].text}
                                                     </ReactMarkdown>
                                                     <span className="text-[10px] md:text-xs opacity-70 mt-1 block">
-                                                        {new Date().toLocaleTimeString()}
+                                                        {messageTimestamps[index] || ''}
                                                     </span>
                                                 </div>
                                             </motion.div>
@@ -349,8 +361,8 @@ const ChatBot = () => {
                                         type="submit"
                                         disabled={!inputMessage.trim() || isLoading}
                                         className={`flex-shrink-0 p-2 rounded-lg ${inputMessage.trim() && !isLoading
-                                                ? 'bg-[var(--neon-color)] text-[var(--button-text)]'
-                                                : 'bg-[var(--card-bg)] text-[var(--text-color)] opacity-50'
+                                            ? 'bg-[var(--neon-color)] text-[var(--button-text)]'
+                                            : 'bg-[var(--card-bg)] text-[var(--text-color)] opacity-50'
                                             }`}
                                         whileHover={inputMessage.trim() && !isLoading ? { scale: 1.05 } : {}}
                                         whileTap={inputMessage.trim() && !isLoading ? { scale: 0.95 } : {}}
