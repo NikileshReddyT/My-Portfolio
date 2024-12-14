@@ -78,7 +78,7 @@ c) Leadership Roles:
   * Managed team implementation and presentation
   * Incorporated judge feedback effectively
 
-- Skill Development Hackathon Team Lead (2018-2019)
+- Skill Development Hackathon Team Lead (2023-2024)
   * Led full-stack project development
   * Managed MERN stack applications
   * Coordinated team collaboration
@@ -303,8 +303,8 @@ const useChat = () => {
       setError(null);
 
       // Add user message to UI
-      const userMessage = { 
-        role: "user", 
+      const userMessage = {
+        role: "user",
         parts: [{ text: message }]
       };
       setMessages(prev => [...prev, userMessage]);
@@ -343,8 +343,8 @@ const useChat = () => {
       // Add bot response to UI
       setMessages(prev => [
         ...prev,
-        { 
-          role: "model", 
+        {
+          role: "model",
           parts: [{ text: responseText }]
         }
       ]);
