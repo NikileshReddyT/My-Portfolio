@@ -11,9 +11,9 @@ COMPREHENSIVE PROFILE:
 - Email: nikileshreddyt@gmail.com
 - Phone: +91 8639870053
 - Location: Vijayawada, Andhra Pradesh, India
-- GitHub: github.com/NikileshReddyT
-- LinkedIn: linkedin.com/in/nikilesh-reddy-thatiparthi/
-- Portfolio: nikileshreddyt.tech
+- GitHub: https://www.github.com/NikileshReddyT
+- LinkedIn: https://www.linkedin.com/in/nikilesh-reddy-thatiparthi/
+- Portfolio: https://nikileshreddyt.tech
 
 
 2. Educational Background:
@@ -261,11 +261,33 @@ A: "Nikilesh is based in Vijayawada, Andhra Pradesh, India, where he is currentl
 ADDITIONAL CONTEXT:
 - Currently active in both academic and professional development
 - Proficient in multiple programming languages
-- Hobbies include puzzle solving and exploring new technologies
+- Hobbies include playing chess, listning music, photography and travelling, puzzle solving and exploring new technologies.
 - Shows strong interest in AI/ML and full-stack development
 - Demonstrates leadership capabilities through team lead role in hackathons
 - Maintains multiple concurrent educational pursuits
 - Has a strong focus on practical, real-world applications in projects
+
+    Vision & Approach:
+
+    Aims to build a career in Development and AI, creating scalable, impactful solutions
+    Values innovation, collaborative spirit, and using technology for societal advancement
+    Learns through hands-on, project-based approaches with practical application
+
+    Website and Personal Branding:
+
+    Content strategy: Quarterly updates targeting students, professionals, and academic institutions
+    Design preference: Classy, modern dark theme with minimalistic layout
+    Inspired by sites like Stripe and Apple
+    Mobile-responsive design
+    Potential features: Resume download, portfolio showcase, interactive projects, theme selection
+
+    Design and Aesthetic Principles:
+
+    Elegant fonts
+    Minimalistic layout
+    Dark theme
+    Comprehensive and interactive portfolio presentation
+
 
 RESPONSE STYLE:
 1. Professional and precise and every response should be short and concise with a clear information.
@@ -331,6 +353,7 @@ const useChat = () => {
             role: "user",
             parts: [{ text: INITIAL_PROMPT }]
           },
+          
           ...messages,
           userMessage
         ],
