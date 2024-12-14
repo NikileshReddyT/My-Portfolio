@@ -30,7 +30,7 @@ const ChatBot = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowInitialButton(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -90,6 +90,9 @@ const ChatBot = () => {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            data-aos="fade-in"
+            data-aos-duration="1000"
+            data-aos-delay="200"
           >
             <FaRobot className="w-6 h-6" />
           </motion.button>
@@ -100,7 +103,7 @@ const ChatBot = () => {
       <AnimatePresence>
         {!showInitialButton && !isOpen && (
           <motion.div
-            className="fixed bottom-4 right-0 z-50 select-none touch-none"
+            className="fixed bottom-4 md:bottom-10 right-0 z-50 select-none touch-none"
             initial={{ x: "100%" }}
             animate={{ x: isPillExpanded ? "0%" : "calc(100% - 16px)" }}
             exit={{ x: "100%" }}
@@ -135,7 +138,7 @@ const ChatBot = () => {
                 className="flex items-center gap-1 px-3 py-1 bg-[var(--card-bg)]/80 backdrop-blur-sm border border-[var(--neon-color)]/30 rounded-l-full text-[var(--text-color)]/80 hover:text-[var(--neon-color)] hover:border-[var(--neon-color)] hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-all duration-300"
               >
                 <FaRobot className="w-4 h-4" />
-                <span className="whitespace-nowrap text-xs font-medium">Chat</span>
+                <span className="whitespace-nowrap text-xs font-medium">Chat with AI</span>
               </motion.button>
             </div>
           </motion.div>
@@ -236,7 +239,7 @@ const ChatBot = () => {
                         </motion.div>
                       ))}
                     </div>
-                    <p className="text-[var(--text-color)]/60 text-sm">
+                    <p className="text-[var(--text-color)]/60 text-sm text-center">
                       Click on any topic or type your own question below! 💬
                     </p>
                   </motion.div>
