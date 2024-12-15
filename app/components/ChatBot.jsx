@@ -198,13 +198,14 @@ const ChatBot = () => {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        exit={{ opacity: 0,transition:{duration:.8} }}
                         className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                     >
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
+                            initial={{ scale: 0.95,x:'100vw',y:'90vh', opacity: 0 }}
+                            animate={{ scale: 1,x:0,y:0, opacity: 1 }}
+                            exit={{ scale: 0.95,x:'100vw',y:'90vh', opacity: 0,transition:{duration:.8 , ease:'backInOut'} }}
+                            transition={{duration:.3, ease:'backInOut'}}
                             className="w-full max-w-2xl h-[80vh] bg-[var(--card-bg)]/95 rounded-2xl shadow-xl border border-[var(--neon-color)] backdrop-blur-md flex flex-col overflow-hidden"
                         >
                             {/* Chat Header */}
@@ -286,7 +287,7 @@ const ChatBot = () => {
                                                 </motion.div>
                                             ))}
                                         </div>
-                                        <p className="text-[var(--text-color)]/60 text-sm text-center ">
+                                        <p className="text-[var(--text-color)]/60 text-sm text-center p-4 ">
                                             Click on any topic or type your own question below! 💬
                                         </p>
                                     </motion.div>
