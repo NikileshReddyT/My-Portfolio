@@ -40,9 +40,15 @@ const ChatBot = () => {
 
     // Initial visibility timer
     useEffect(() => {
+        const checkScreenSize = () => {
+            return window.innerWidth >= 768; // md breakpoint
+        };
+
+        const timeoutDuration = checkScreenSize() ? 3000 : 1400;
+        
         const timer = setTimeout(() => {
             setShowInitialButton(false);
-        }, 3000);
+        }, timeoutDuration);
 
         return () => clearTimeout(timer);
     }, []);
@@ -89,22 +95,51 @@ const ChatBot = () => {
         <>
             {/* Initial Button */}
             <AnimatePresence>
-                {showInitialButton && !isOpen && (
+                {showInitialButton && (
                     <motion.button
                         onClick={handleChatOpen}
-                        className="fixed bottom-8 right-8 p-3 rounded-full bg-[var(--neon-color)] text-[var(--button-text)] shadow-lg hover:shadow-[0_0_15px_rgba(var(--neon-rgb),0.5)] transition-all duration-300 z-50"
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{
-                            opacity: 0,
-                            x: 100,
-                            transition: { duration: 0.5, ease: [0.32, 0, 0.67, 0] }
+                        className="fixed bottom-4 md:bottom-10 right-4 md:right-10 z-50 p-3 md:p-4 bg-[var(--card-bg)]/80 backdrop-blur-sm border border-[var(--neon-color)] rounded-full text-[var(--neon-color)] hover:scale-110 hover:rotate-[360deg] hover:shadow-[0_0_15px_rgba(var(--neon-rgb),0.3)] transition-all duration-500"
+                        initial={{ x: "200%", rotate: -180, scale: 0 }}
+                        animate={{ 
+                            x: 0, 
+                            rotate: 0,
+                            scale: 1,
+                            transition: { 
+                                type: "spring",
+                                stiffness: 100,
+                                damping: 20,
+                                duration: window.innerWidth >= 768 ? 3 : 1.5,
+                                delay: 0.3
+                            }
                         }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        data-aos="fade-in"
-                        data-aos-duration="1000"
-                        data-aos-delay="200"
+                        exit={{ 
+                            x: "200%", 
+                            rotate: 180,
+                            scale: 0,
+                            transition: { 
+                                type: "spring",
+                                stiffness: 80,
+                                damping: 15,
+                                duration: window.innerWidth >= 768 ? 2 : 1
+                            }
+                        }}
+                        whileHover={{ 
+                            scale: 1.1,
+                            rotate: [0, -10, 10, -10, 0],
+                            transition: { 
+                                rotate: {
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    repeatType: "reverse",
+                                    ease: "easeInOut"
+                                },
+                                scale: {
+                                    duration: 1,
+                                    ease: "easeOut"
+                                }
+                            }
+                        }}
+                        whileTap={{ scale: 0.9, transition: { duration: 0.3 } }}
                     >
                         <FaRobot className="w-6 h-6" />
                     </motion.button>
@@ -147,7 +182,7 @@ const ChatBot = () => {
                             </motion.div>
                             <motion.button
                                 onClick={handleChatOpen}
-                                className="flex items-center gap-1 px-3 py-1 bg-[var(--card-bg)]/80 backdrop-blur-sm border border-[var(--neon-color)]/30 rounded-l-full text-[var(--text-color)]/80 hover:text-[var(--neon-color)] hover:border-[var(--neon-color)] hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-all duration-300"
+                                className="flex items-center gap-1 px-3 py-1 md:px-4 md:py-2 bg-[var(--card-bg)]/80 backdrop-blur-sm border border-[var(--neon-color)] rounded-l-full text-[var(--text-color)]/80 hover:text-[var(--neon-color)] hover:border-[var(--neon-color)] hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-all duration-300"
                             >
                                 <FaRobot className="w-4 h-4" />
                                 <span className="whitespace-nowrap text-xs font-medium">Chat with AI</span>
@@ -170,13 +205,13 @@ const ChatBot = () => {
                             initial={{ scale: 0.95, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
-                            className="w-full max-w-2xl h-[80vh] bg-[var(--card-bg)]/95 rounded-2xl shadow-xl border border-[var(--neon-color)]/30 backdrop-blur-md flex flex-col overflow-hidden"
+                            className="w-full max-w-2xl h-[80vh] bg-[var(--card-bg)]/95 rounded-2xl shadow-xl border border-[var(--neon-color)] backdrop-blur-md flex flex-col overflow-hidden"
                         >
                             {/* Chat Header */}
-                            <div className="p-4 border-b border-[var(--neon-color)]/30 flex items-center justify-between bg-[var(--card-bg)] backdrop-blur-md">
-                                <div className="flex items-center gap-3">
+                            <div className="p-4 border-b border-[var(--neon-color)] flex items-center justify-between bg-[var(--card-bg)] backdrop-blur-md">
+                                <div className="flex items-center gap-3 w-full justify-center">
                                     <FaRobot className="w-5 h-5 text-[var(--neon-color)]" />
-                                    <h3 className="text-lg font-medium text-[var(--text-color)]">Chat with Nikilesh's AI</h3>
+                                    <h3 className="text-lg font-medium text-[var(--text-color)] text-center">Chat with <span className="text-[var(--neon-color)] font-bold">JARVIS</span><span className='hidden ml-2 sm:inline-block'>My <span className="text-[var(--neon-color)] font-bold">Personal AI Assistance</span></span></h3>
                                 </div>
                                 <motion.button
                                     onClick={() => setIsOpen(false)}
@@ -217,7 +252,7 @@ const ChatBot = () => {
                                             Hey there! 👋
                                         </h2>
                                         <p className="text-[var(--text-color)]/80 max-w-md">
-                                            I'm Nikilesh's AI assistant, ready to help you learn more about him! Feel free to ask me anything about:
+                                            I'm <span className="text-[var(--neon-color)] font-bold">Nikilesh's</span> AI assistant <span className="text-[var(--neon-color)] font-bold">JARVIS</span>, ready to help you learn more about him! Feel free to ask me anything about:
                                         </p>
                                         <div className="grid grid-cols-2 gap-4 w-full max-w-md">
                                             {[
@@ -233,7 +268,7 @@ const ChatBot = () => {
                                                     initial={{ opacity: 0, y: 20 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ delay: 0.1 * index }}
-                                                    className="bg-[var(--card-bg)] border border-[var(--neon-color)]/30 p-3 rounded-xl flex flex-col md:flex-row items-center gap-3 hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-shadow cursor-pointer"
+                                                    className="bg-[var(--card-bg)] border border-[var(--neon-color)] p-3 rounded-xl flex flex-col md:flex-row items-center gap-3 hover:shadow-[0_0_10px_rgba(var(--neon-rgb),0.2)] transition-shadow cursor-pointer"
                                                     onClick={() => {
                                                         const questions = [
                                                             "What are your technical skills?",
@@ -251,7 +286,7 @@ const ChatBot = () => {
                                                 </motion.div>
                                             ))}
                                         </div>
-                                        <p className="text-[var(--text-color)]/60 text-sm text-center">
+                                        <p className="text-[var(--text-color)]/60 text-sm text-center ">
                                             Click on any topic or type your own question below! 💬
                                         </p>
                                     </motion.div>
@@ -267,7 +302,7 @@ const ChatBot = () => {
                                                 <div
                                                     className={`max-w-[80%] p-3 rounded-2xl ${message.role === 'user'
                                                         ? 'bg-[var(--neon-color)] text-[var(--button-text)] rounded-tr-none'
-                                                        : 'bg-[var(--card-bg)] border border-[var(--neon-color)]/30 text-[var(--text-color)] rounded-tl-none'
+                                                        : 'bg-[var(--card-bg)] border border-[var(--neon-color)] p-3 rounded-2xl text-[var(--text-color)] rounded-tl-none'
                                                         }`}
                                                 >
                                                     <ReactMarkdown
@@ -327,7 +362,7 @@ const ChatBot = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         className="flex justify-start"
                                     >
-                                        <div className="bg-[var(--card-bg)] border border-[var(--neon-color)]/30 p-3 rounded-2xl rounded-tl-none">
+                                        <div className="bg-[var(--card-bg)] border border-[var(--neon-color)] p-3 rounded-2xl rounded-tl-none">
                                             <BsThreeDots className="w-5 h-5 text-[var(--neon-color)] animate-pulse" />
                                         </div>
                                     </motion.div>
@@ -347,7 +382,7 @@ const ChatBot = () => {
                             </div>
 
                             {/* Chat Input */}
-                            <form onSubmit={handleSendMessage} className="p-4 border-t border-[var(--neon-color)]/30 bg-[var(--card-bg)] backdrop-blur-md">
+                            <form onSubmit={handleSendMessage} className="p-4 border-t border-[var(--neon-color)] bg-[var(--card-bg)] backdrop-blur-md">
                                 <div className="relative flex items-center gap-2 min-w-0">
                                     <input
                                         type="text"
