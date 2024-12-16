@@ -202,10 +202,23 @@ const ChatBot = () => {
                         className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
                     >
                         <motion.div
-                            initial={{ scale: 0.95,x:'100vw',y:'90vh', opacity: 0 }}
-                            animate={{ scale: 1,x:0,y:0, opacity: 1 }}
-                            exit={{ scale: 0.95,x:'100vw',y:'90vh', opacity: 0,transition:{duration:.8 , ease:'backInOut'} }}
-                            transition={{duration:.3, ease:'backInOut'}}
+                            initial={{ x: '100%',y:'100%', opacity: 0 }}
+                            animate={{ x: 0,y:0, opacity: 1 }}
+                            transition={{ 
+                                type: "tween",
+                                duration: 0.4,
+                                ease: [0.25, 0.1, 0.25, 1],
+                            }}
+                            exit={{ 
+                                x: '100%',
+                                y:'100%',
+                                opacity: 0,
+                                transition: {
+                                    type: "tween",
+                                    duration: 0.3,
+                                    ease: [0.25, 0.1, 0.25, 1],
+                                }
+                            }}
                             className="w-full max-w-2xl h-[80vh] bg-[var(--card-bg)]/95 rounded-2xl shadow-xl border border-[var(--neon-color)] backdrop-blur-md flex flex-col overflow-hidden"
                         >
                             {/* Chat Header */}
