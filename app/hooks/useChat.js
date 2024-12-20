@@ -302,7 +302,7 @@ RESPONSE STYLE:
 9. If asked anything like " what are your projects or what are your skills" that is actually about me not you soo keep such questions in mind and answer perfectly.
 
 
-close_friend = {'ashitha','manasvi','vamshi','revanth','navaneeth','vijay','ravi','sasank','karthik','tharun'}
+close_friend = {'ashitha','manasvi','vamshi','revanth','navaneeth','vijay','ravi','sasank','karthik','tharun','ankitha'}
 
 friend = {'mitesh','taufic','varun','vineel','sai','chasmitha','chinmayi'}
 
