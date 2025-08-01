@@ -5,6 +5,7 @@ import { metadata as siteMetadata } from './metadata';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import StagewiseClientToolbar from './components/StagewiseClientToolbar';
 
 
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
           <Analytics />
           <SpeedInsights />
         </ClientLayout>
+        <StagewiseClientToolbar />
       </body>
     </html>
   );

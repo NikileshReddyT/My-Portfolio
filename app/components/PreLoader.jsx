@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+import SplitText from './ui/SplitText';
 import { useEffect, useState } from 'react';
 
 const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
@@ -28,15 +29,14 @@ const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
       data-theme={theme}
     >
       <div className="flex flex-col items-center gap-8">
-        {/* Logo Container */}
-        <motion.div
+                        <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{
             scale: 1,
             opacity: 1,
           }}
           transition={{ duration: 0.5 }}
-          className="neon-card p-12 rounded-xl relative overflow-hidden"
+          className="neon-card p-12 rounded-xl relative overflow-hidden flex items-baseline"
         >
           {/* Animated Border Lines */}
           <div className="absolute inset-x-0 top-0 h-[2px] animate-border-flow bg-gradient-to-r from-transparent via-[var(--neon-color)] to-transparent" />
@@ -45,22 +45,11 @@ const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
           <div className="absolute inset-y-0 right-0 w-[2px] animate-border-flow-up bg-gradient-to-b from-transparent via-[var(--neon-color)] to-transparent" />
 
           {/* Logo */}
-          <motion.div
-            animate={{
-              textShadow: [
-                '0 0 20px var(--neon-color)',
-                '0 0 30px var(--neon-color)',
-                '0 0 20px var(--neon-color)',
-              ]
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="text-6xl font-bold text-[var(--neon-color)]"
-          >
-            NR
+          <motion.div layoutId="preloader-N" className="text-6xl font-bold text-[var(--neon-color)]">
+            N
+          </motion.div>
+          <motion.div className="text-6xl font-bold text-[var(--neon-color)]">
+            R
           </motion.div>
         </motion.div>
 

@@ -1,5 +1,6 @@
 'use client';
 import { skillCategories } from '../data/skills';
+import SpotlightCard from './ui/SpotlightCard';
 
 const SkillsSection = () => {
   return (
@@ -24,9 +25,10 @@ const SkillsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
-            <div
+            <SpotlightCard
               key={categoryIndex}
-              className="neon-card p-6 rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] "
+              spotlightColor={`rgba(var(--neon-rgb), 0.2)`}
+              className="p-6 rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)]"
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={categoryIndex * 200}
@@ -73,7 +75,7 @@ const SkillsSection = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

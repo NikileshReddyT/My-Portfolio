@@ -2,6 +2,7 @@
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import { projects } from '../data/projects';
+import SpotlightCard from './ui/SpotlightCard';
 
 const ProjectsSection = () => {
   return (
@@ -27,9 +28,10 @@ const ProjectsSection = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 [&>*:last-child:nth-child(odd)]:md:col-span-2 [&>*:last-child:nth-child(odd)]:md:mx-auto [&>*:last-child:nth-child(odd)]:md:max-w-[calc(50%-1rem)]">
           {projects.map((project, index) => (
-            <div
+            <SpotlightCard
               key={index}
-              className="neon-card group relative rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-2"
+              spotlightColor={`rgba(var(--neon-rgb), 0.2)`}
+              className="group relative rounded-xl border border-[var(--neon-color)] bg-[var(--card-bg)] shadow-[0_0_15px_rgba(var(--neon-rgb),0.15)] transform transition-all duration-300 hover:-translate-y-2 p-0"
               data-aos="fade-up"
               data-aos-duration="800"
               data-aos-delay={index * 200}
@@ -113,7 +115,7 @@ const ProjectsSection = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </div>

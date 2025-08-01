@@ -1,24 +1,33 @@
 'use client';
+import SplitText from './ui/SplitText';
+import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FaGithub, FaLinkedin, FaTwitter, FaDownload, FaWhatsapp, FaInstagram } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
+  const [introComplete, setIntroComplete] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIntroComplete(true), 1700);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <header id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8">
+    <header id="home" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--card-bg)] via-transparent to-transparent opacity-40" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-8" data-aos="fade-down" data-aos-delay="200">
-          {/* Profile Image - Variation 1: Clean fade-in with subtle zoom */}
-          <div
-            className="mx-auto w-40 h-40 rounded-full relative group mb-8"
-            data-aos="fade-in"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-          >
+        <div className="text-center space-y-6">
+          <motion.div
+            layoutId="profile-picture"
+            className={`mx-auto w-40 h-40 rounded-full relative group ${introComplete ? '' : 'mt-48 mb-24'}`}
+            initial={{ scale: 1.3 }}
+            animate={{ scale: introComplete ? 1 : 1.3, transition: { duration: 0.8 ,ease:'backInOut',stiffness:100,damping:10}}}
+          > 
             {/* Outer glow effect */}
             <div
               className="absolute -inset-0.5 bg-[var(--neon-color)] rounded-full blur opacity-50 group-hover:opacity-75 transition-opacity z-[1] animate-pulse"
@@ -35,147 +44,31 @@ const HeroSection = () => {
                 className="w-full h-full rounded-full object-cover shadow-[0_0_15px_rgba(var(--neon-rgb),0.5)]"
               />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Name - Variation 1: Clean fade-up with stagger */}
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight flex justify-center items-baseline gap-2">
-            <span
-              className="text-[var(--neon-color)] font-extrabold inline-block"
-              data-aos="fade-up"
-              data-aos-duration="800"
-              data-aos-delay="400"
-              data-aos-easing="ease-out-cubic"
-            >
-              Nikilesh
-            </span>
-            <span
-              className="text-[var(--text-color)] font-bold inline-block"
-              data-aos="fade-up"
-              data-aos-duration="800"
-              data-aos-delay="500"
-              data-aos-easing="ease-out-cubic"
-            >
-              Reddy
-            </span>
-          </h1>
-
-          {/* Alternative Professional Variations - Uncomment to try */}
-
-          {/* Variation 2: Subtle slide-in from bottom */}
-          {/*
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight overflow-hidden">
-            <div className="flex justify-center items-baseline space-x-4">
-              <span 
-                className="text-[var(--neon-color)] font-extrabold"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-delay="400"
-                data-aos-easing="ease-out-quart"
-              >
-                Nikilesh
-              </span>
-              <span 
-                className="text-[var(--text-color)] font-bold"
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-delay="600"
-                data-aos-easing="ease-out-quart"
-              >
-                Reddy
-              </span>
-            </div>
-          </h1>
-          */}
-
-          {/* Variation 3: Fade in place */}
-          {/*
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span 
-              className="text-[var(--neon-color)] font-extrabold inline-block"
-              data-aos="fade"
-              data-aos-duration="1200"
-              data-aos-delay="400"
-              data-aos-easing="ease-in-out"
-            >
-              Nikilesh
-            </span>
-            <span 
-              className="text-[var(--text-color)] font-bold inline-block"
-              data-aos="fade"
-              data-aos-duration="1200"
-              data-aos-delay="600"
-              data-aos-easing="ease-in-out"
-            >
-              {" "}Reddy
-            </span>
-          </h1>
-          */}
-
-          {/* Variation 4: Subtle scale */}
-          {/*
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span 
-              className="text-[var(--neon-color)] font-extrabold inline-block opacity-0"
-              data-aos="zoom-in"
-              data-aos-duration="800"
-              data-aos-delay="400"
-              data-aos-easing="ease-out"
-            >
-              Nikilesh
-            </span>
-            <span 
-              className="text-[var(--text-color)] font-bold inline-block opacity-0"
-              data-aos="zoom-in"
-              data-aos-duration="800"
-              data-aos-delay="500"
-              data-aos-easing="ease-out"
-            >
-              {" "}Reddy
-            </span>
-          </h1>
-          */}
-
-          {/* Profile Variations */}
-
-          {/* Variation 2: Fade down */}
-          {/*
-          <div
-            className="mx-auto w-40 h-40 rounded-full relative group mb-8"
-            data-aos="fade-down"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-            data-aos-easing="ease-out-cubic"
-          >
-          */}
-
-          {/* Variation 3: Scale with fade */}
-          {/*
-          <div
-            className="mx-auto w-40 h-40 rounded-full relative group mb-8"
-            data-aos="zoom-in"
-            data-aos-duration="1200"
-            data-aos-delay="200"
-            data-aos-easing="ease-out-quad"
-          >
-          */}
-
-          {/* Variation 4: Subtle slide up */}
-          {/*
-          <div
-            className="mx-auto w-40 h-40 rounded-full relative group mb-8"
-            data-aos="slide-up"
-            data-aos-duration="800"
-            data-aos-delay="200"
-            data-aos-easing="ease-out"
-          >
-          */}
+          <motion.h1 layoutId="name" className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight flex justify-center items-baseline gap-2 mt-48 mb-24"
+            initial={{ scale: 1.2 }}
+            animate={{ scale: introComplete ? 1 : 1.2, transition: { duration: 0.8 ,ease:'backInOut', delay:0.4} }}>
+            <SplitText 
+              text="Nikilesh"
+              className="text-[var(--neon-color)] font-extrabold"
+              delay={0.1}
+            />
+            <SplitText 
+              text="Reddy"
+              className="text-[var(--text-color)] font-bold"
+              delay={0.1}
+              animationDelay={0.8} // Nikilesh has 8 letters * 0.1 delay
+            />
+          </motion.h1>
 
           {/* Role */}
           <div
             className="text-2xl sm:text-3xl font-medium"
             data-aos="fade"
             data-aos-duration="1000"
-            data-aos-delay="800"
+            data-aos-delay="2000"
+            style={{ visibility: introComplete ? 'visible' : 'hidden' }}
           >
             <span className="text-[var(--text-color)]">I'm a </span>
             <TypeAnimation
@@ -205,8 +98,9 @@ const HeroSection = () => {
             <p
               className="text-lg text-[var(--text-color)] mb-6 sm:block hidden"
               data-aos="fade"
-              data-aos-duration="800"
-              data-aos-delay="1000"
+              data-aos-duration="1000"
+              data-aos-delay="2300"
+              style={{ visibility: introComplete ? 'visible' : 'hidden' }}
             >
               Passionate Full Stack Developer specializing in building modern web applications with React, Next.js, and cutting-edge technologies.
               Creating seamless user experiences and robust backend solutions.
@@ -215,7 +109,8 @@ const HeroSection = () => {
               className="text-lg text-[var(--text-color)] mb-6 sm:hidden"
               data-aos="fade"
               data-aos-duration="800"
-              data-aos-delay="1000"
+              data-aos-delay="2300"
+              style={{ visibility: introComplete ? 'visible' : 'hidden' }}
             >
               Full Stack Developer with expertise in React, Next.js, and backend systems, delivering modern, efficient, and user-focused applications.
             </p>
@@ -227,7 +122,8 @@ const HeroSection = () => {
             className="flex justify-center gap-4 mt-8"
             data-aos="fade"
             data-aos-duration="800"
-            data-aos-delay="1200"
+            data-aos-delay="2500"
+            style={{ visibility: introComplete ? 'visible' : 'hidden' }}
           >
             <a
               href="https://wa.me/918639870053" target="_blank" rel="noopener noreferrer" className="text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors">
@@ -256,7 +152,8 @@ const HeroSection = () => {
             className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
             data-aos="fade"
             data-aos-duration="800"
-            data-aos-delay="1400"
+            data-aos-delay="2500"
+            style={{ visibility: introComplete ? 'visible' : 'hidden' }}
           >
             <a
               href="#projects"
