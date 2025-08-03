@@ -52,7 +52,7 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-          <motion.h1 layoutId="name" className="text-[45px] sm:text-7xl lg:text-8xl font-bold tracking-tight flex flex-wrap justify-center items-baseline gap-x-2 mt-48 mb-24"
+          <motion.h1 layoutId="name" className="text-[45px] sm:text-7xl lg:text-8xl font-bold tracking-tight flex flex-wrap justify-center items-baseline mt-48 mb-24"
             initial={{ scale: 1.2 }}
             animate={{ scale: introComplete ? 1 : 1.1, transition: { duration: 0.8 ,ease:'backInOut', delay:0.4} }}>
             <SplitText 
