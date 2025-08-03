@@ -1,73 +1,63 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaSearch, FaCalendar, FaTag, FaChevronRight } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaSearch, FaCalendar, FaTag, FaChevronRight, FaClock } from 'react-icons/fa';
 import Link from 'next/link';
 
 const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  
-  // Sample blog data - in a real app, this would come from an API
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Building Scalable Web Applications with Next.js",
-      excerpt: "Exploring the best practices for building scalable web applications using Next.js and React ecosystem.",
-      date: "2024-07-15",
-      tags: ["Next.js", "React", "Web Development"],
-      readTime: "5 min read"
-    },
-    {
-      id: 2,
-      title: "Machine Learning in Production: Challenges and Solutions",
-      excerpt: "A deep dive into the challenges of deploying machine learning models in production environments.",
-      date: "2024-06-28",
-      tags: ["Machine Learning", "AI", "Deployment"],
-      readTime: "8 min read"
-    },
-    {
-      id: 3,
-      title: "Optimizing Database Performance for High-Traffic Applications",
-      excerpt: "Techniques and strategies for optimizing database performance in high-traffic web applications.",
-      date: "2024-06-10",
-      tags: ["Database", "Performance", "Backend"],
-      readTime: "6 min read"
-    },
-    {
-      id: 4,
-      title: "The Future of Web Development: Trends to Watch in 2024",
-      excerpt: "Exploring emerging trends and technologies that are shaping the future of web development.",
-      date: "2024-05-22",
-      tags: ["Web Development", "Trends", "Technology"],
-      readTime: "7 min read"
-    },
-    {
-      id: 5,
-      title: "Mastering State Management in React Applications",
-      excerpt: "A comprehensive guide to different state management solutions in React and when to use them.",
-      date: "2024-04-18",
-      tags: ["React", "State Management", "Frontend"],
-      readTime: "10 min read"
-    }
-  ];
-  
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('/api/blog');
+        if (!response.ok) throw new Error('Failed to fetch blog posts');
+        const data = await response.json();
+        // Filter to show only published posts
+        const publishedPosts = data.filter(post => post.status === 'published');
+        setBlogPosts(publishedPosts);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching blog posts:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
   const filteredPosts = blogPosts.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
   );
-  
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[var(--background)] text-white">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Error Loading Blog Posts</h2>
+          <p className="text-gray-400">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white py-12 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-[var(--background)] to-[var(--card-bg)] text-white py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-[var(--neon-color)]">
             Nikilesh Reddy's Tech Blog
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -90,90 +80,81 @@ const BlogPage = () => {
               placeholder="Search articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+              className="w-full pl-12 pr-6 py-4 rounded-2xl bg-[var(--card-bg)] border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] focus:border-transparent transition-all duration-300 shadow-lg"
             />
           </div>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post, index) => (
-              <motion.article 
-                key={post.id}
-                className="bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-purple-500 transition-all duration-300 shadow-xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="p-6">
-                  <div className="flex flex-wrap items-center justify-between mb-4">
-                    <div className="flex items-center text-sm text-gray-400 mb-2 md:mb-0">
-                      <FaCalendar className="mr-2" />
-                      <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-                    </div>
-                    <span className="text-sm text-gray-400">{post.readTime}</span>
-                  </div>
-                  
-                  <h2 className="text-2xl font-bold mb-4 text-white hover:text-purple-400 transition-colors cursor-pointer">
-                    {post.title}
-                  </h2>
-                  
-                  <p className="text-gray-300 mb-6">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {post.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="px-3 py-1 text-xs rounded-full bg-purple-900 bg-opacity-50 text-purple-300">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <Link href={`/blog/${post.id}`}>
-                    <div className="inline-flex items-center text-purple-400 font-medium hover:text-purple-300 transition-colors">
-                      Read full article
-                      <FaChevronRight className="ml-2 text-sm" />
-                    </div>
-                  </Link>
-                </div>
-              </motion.article>
-            ))
-          ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {loading ? (
             <motion.div 
-              className="col-span-2 text-center py-16 bg-gray-800 rounded-2xl border border-gray-700"
+              className="col-span-3 text-center py-16"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <FaSearch className="mx-auto text-4xl text-gray-500 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">No articles found</h3>
-              <p className="text-gray-400 max-w-md mx-auto">Try adjusting your search terms or browse all articles.</p>
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--neon-color)]"></div>
+              <p className="mt-4 text-gray-400">Loading blog posts...</p>
             </motion.div>
+          ) : filteredPosts.length === 0 ? (
+            <motion.div 
+              className="col-span-3 text-center py-16"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <p className="text-xl text-gray-400">No blog posts found.</p>
+              <p className="text-gray-500 mt-2">Try adjusting your search terms.</p>
+            </motion.div>
+          ) : (
+            <AnimatePresence>
+              {filteredPosts.map((post, index) => (
+                <motion.article
+                  key={post.id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  whileHover={{ y: -8 }}
+                  className="bg-[var(--card-bg)] rounded-2xl border border-white/10 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-[var(--neon-color)]/10 transition-all duration-300"
+                >
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center text-sm text-gray-400">
+                        <FaCalendar className="mr-2" />
+                        <time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-400">
+                        <FaClock className="mr-2" />
+                        <span>{Math.ceil(post.content.length / 1500)} min reading</span>
+                      </div>
+                    </div>
+                    
+                    <h2 className="text-xl font-bold mb-3 line-clamp-2 text-[var(--neon-color)] ">
+                      {post.title}
+                    </h2>
+                    
+                    <p className="text-gray-300 line-clamp-3 mb-4">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 mt-4 mb-6">
+                      {post.tags && post.tags.slice(0, 3).map((tag, tagIndex) => (
+                        <span key={tagIndex} className="px-3 py-1 text-xs rounded-full bg-[var(--neon-color)]/10 text-[var(--neon-color)] border border-[var(--neon-color)]/30">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    <Link href={`/blog/${post.id}`} className="inline-flex items-center px-4 py-2 rounded-lg bg-[var(--neon-color)] text-[var(--button-text)] font-bold hover:bg-opacity-90 transition-all duration-300 group">
+                      Read Article
+                      <FaChevronRight className="ml-2 text-sm transition-transform duration-300 group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
           )}
         </div>
-        
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <h2 className="text-3xl font-bold mb-6 text-white">Stay Updated</h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Subscribe to get notified when new articles are published.
-          </p>
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            />
-            <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg font-medium hover:from-purple-700 hover:to-indigo-700 transition-all duration-300">
-              Subscribe
-            </button>
-          </div>
-        </motion.div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { pool, initTestimonialsTable } from '../../../lib/db';
+import { pool, initTestimonialsTable } from '../../../../lib/db';
 
 async function initialize() {
   try {

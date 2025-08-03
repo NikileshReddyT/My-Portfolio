@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaEdit, FaTrash, FaSearch, FaEye, FaSpinner, FaFileAlt } from 'react-icons/fa';
 import Link from 'next/link';
@@ -12,7 +13,9 @@ const ActionButton = ({ href, icon: Icon, className, children }) => (
   </Link>
 );
 
-const PostListItem = ({ post, handleDelete, index }) => (
+const PostListItem = ({ post, handleDelete, index }) => {
+  console.log(post);
+  return (
   <motion.div
     layout
     initial={{ opacity: 0, y: 20 }}
@@ -22,25 +25,27 @@ const PostListItem = ({ post, handleDelete, index }) => (
     className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center bg-[var(--card-bg)]/50 p-4 rounded-lg border border-transparent hover:border-[var(--neon-color)] transition-all"
   >
     <div className="md:col-span-2">
-      <p className="font-bold text-white truncate">{post.title}</p>
-      <p className="text-sm text-gray-400">/{post.slug}</p>
+      <p className="font-bold text-white truncate">{post.title} : {post.excerpt}</p>
+      <p className="text-sm text-gray-400">{post.content.slice(0, 100)}</p>
+      <p className="text-sm text-gray-400">ID: {post.id}</p>
     </div>
     <div className="text-center">
       <span className={`px-3 py-1 text-xs font-bold rounded-full ${post.published ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300'}`}>
-        {post.published ? 'Published' : 'Draft'}
+        {post.status === "published" ? 'Published' : 'Draft'}
       </span>
     </div>
     <div className="flex items-center justify-end gap-2">
-      <ActionButton href={`/blog/${post.slug}`} icon={FaEye} className="hover:text-blue-400" />
+      <ActionButton href={`/blog/${post.id}`} icon={FaEye} className="hover:text-blue-400" />
       <ActionButton href={`/admin/blog/edit/${post.id}`} icon={FaEdit} className="hover:text-purple-400" />
       <button onClick={() => handleDelete(post.id)} className="p-2 text-gray-400 hover:text-red-400 transition-colors">
         <FaTrash />
       </button>
     </div>
   </motion.div>
-);
+)};
 
 export default function AdminBlog() {
+  const router = useRouter();
   const [posts, setPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
@@ -48,11 +53,11 @@ export default function AdminBlog() {
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
     if (!isAdmin) {
-      window.location.href = '/admin/login';
+      router.push('/admin/login');
     } else {
       fetchBlogPosts();
     }
-  }, []);
+  }, [router]);
 
   const fetchBlogPosts = async () => {
     try {

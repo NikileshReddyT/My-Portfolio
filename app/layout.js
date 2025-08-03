@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google';
-import "./globals.css";
+import "../styles/globals.css";
 import ClientLayout from './ClientLayout';
 import { metadata as siteMetadata, structuredData } from './metadata';
-import GoogleAnalytics from './components/GoogleAnalytics';
+import GoogleAnalytics from '../components/GoogleAnalytics';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import StagewiseClientToolbar from './components/StagewiseClientToolbar';
+import StagewiseClientToolbar from '../components/StagewiseClientToolbar';
 
 const inter = Inter({ 
   subsets: ['latin'],

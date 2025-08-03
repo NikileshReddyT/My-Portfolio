@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaQuoteLeft, FaTimes, FaPaperPlane, FaCheckCircle, FaPenFancy } from 'react-icons/fa';
-import SimpleNavbar from '../components/SimpleNavbar';
+import SimpleNavbar from '../../components/SimpleNavbar';
 
 // Main Page Component
 const TestimonialsPage = () => {

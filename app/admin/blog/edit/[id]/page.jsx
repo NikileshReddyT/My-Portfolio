@@ -49,6 +49,7 @@ export default function EditPostPage() {
   const { id } = params;
 
   const [title, setTitle] = useState('');
+  const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState('');
   const [published, setPublished] = useState(false);
   const [tags, setTags] = useState('');
@@ -64,9 +65,10 @@ export default function EditPostPage() {
         })
         .then(data => {
           setTitle(data.title);
+          setExcerpt(data.excerpt || '');
           setContent(data.content);
-          setPublished(data.published);
-          setTags(Array.isArray(data.tags) ? data.tags.join(', ') : '');
+          setPublished(data.status === 'published');
+          setTags(Array.isArray(data.tags) ? data.tags.join(', ') : data.tags || '');
           setIsLoading(false);
         })
         .catch(err => {
@@ -84,8 +86,9 @@ export default function EditPostPage() {
 
     const postData = {
       title,
+      excerpt,
       content,
-      published,
+      status: published ? 'published' : 'draft',
       tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag),
     };
 
@@ -138,6 +141,7 @@ export default function EditPostPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="md:col-span-2 space-y-6">
           <InputField id="title" label="Post Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter a catchy title"/>
+          <TextareaField id="excerpt" label="Excerpt" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Brief summary of the post"/>
           <TextareaField id="content" label="Post Content" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Write your amazing blog post here..."/>
         </motion.div>
 

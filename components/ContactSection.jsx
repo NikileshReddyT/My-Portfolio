@@ -115,14 +115,14 @@ const ContactSection = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="space-y-6 flex flex-col items-center justify-center h-full py-12"
+              className="space-y-6 flex flex-col items-center justify-center h-full py-12 border border-[var(--neon-color)] rounded-2xl"
             >
               {submitStatus === 'success' ? (
                 <>
                   <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
                     <FaCheck className="text-green-500 text-2xl" />
                   </div>
-                  <h3 className="text-2xl font-bold text-green-500">Message Sent Successfully!</h3>
+                  <h3 className="text-2xl font-bold text-[var(--neon-color)]">Message Sent Successfully!</h3>
                   <p className="text-center text-[var(--text-color)] max-w-md">
                     Thank you for reaching out. I'll get back to you as soon as possible.
                   </p>

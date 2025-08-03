@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import PreLoader from './components/PreLoader';
-import Footer from './components/Footer';
+import PreLoader from '../components/PreLoader';
+import Footer from '../components/Footer';
 
 export default function PageWrapper({ children }) {
   const pathname = usePathname();

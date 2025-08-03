@@ -1,23 +1,12 @@
 import { NextResponse } from 'next/server';
-import { pool, initBlogsTable } from '../../../../lib/db';
-
-// Initialize the blogs table if it doesn't exist
-async function initialize() {
-  try {
-    await initBlogsTable();
-  } catch (err) {
-    console.error('Failed to initialize blogs table:', err);
-  }
-}
-
-initialize();
+import { pool } from '../../../../lib/db';
 
 // GET a single blog post by ID
 export async function GET(request, { params }) {
-  const { id } = params;
+  const { id } = await params; // Await params as per Next.js 15 requirement
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT * FROM blog_posts WHERE id = $1', [id]);
+    const result = await client.query('SELECT * FROM blogs WHERE id = $1', [id]);
     client.release();
     if (result.rows.length === 0) {
       return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
@@ -31,10 +20,9 @@ export async function GET(request, { params }) {
 
 // PUT (update) a blog post by ID
 export async function PUT(request, { params }) {
-  const { id } = params;
+  const { id } = await params; // Await params as per Next.js 15 requirement
   try {
-    const { title, content, published, tags } = await request.json();
-    const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    const { title, excerpt, content, tags, status } = await request.json();
 
     if (!title || !content) {
       return NextResponse.json({ error: 'Title and content are required' }, { status: 400 });
@@ -42,12 +30,12 @@ export async function PUT(request, { params }) {
 
     const client = await pool.connect();
     const query = `
-      UPDATE blog_posts
-      SET title = $1, slug = $2, content = $3, published = $4, tags = $5, updated_at = CURRENT_TIMESTAMP
+      UPDATE blogs
+      SET title = $1, excerpt = $2, content = $3, tags = $4, status = $5, updated_at = CURRENT_TIMESTAMP
       WHERE id = $6
       RETURNING *;
     `;
-    const values = [title, slug, content, published, tags, id];
+    const values = [title, excerpt, content, tags, status, id];
     const result = await client.query(query, values);
     client.release();
 
@@ -64,10 +52,10 @@ export async function PUT(request, { params }) {
 
 // DELETE a blog post by ID
 export async function DELETE(request, { params }) {
-  const { id } = params;
+  const { id } = await params; // Await params as per Next.js 15 requirement
   try {
     const client = await pool.connect();
-    const result = await client.query('DELETE FROM blog_posts WHERE id = $1 RETURNING *', [id]);
+    const result = await client.query('DELETE FROM blogs WHERE id = $1 RETURNING *', [id]);
     client.release();
 
     if (result.rowCount === 0) {
