@@ -17,7 +17,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <header id="home" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
+    <header id="home" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-24 sm:pt-20">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--card-bg)] via-transparent to-transparent opacity-40" />
 
@@ -50,7 +50,7 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-          <motion.h1 layoutId="name" className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight flex justify-center items-baseline gap-2 mt-48 mb-24"
+          <motion.h1 layoutId="name" className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight flex flex-wrap justify-center items-baseline gap-x-2 mt-48 mb-24"
             initial={{ scale: 1.2 }}
             animate={{ scale: introComplete ? 1 : 1.2, transition: { duration: 0.8 ,ease:'backInOut', delay:0.4} }}>
             <SplitText 
@@ -59,7 +59,7 @@ const HeroSection = () => {
               delay={0.1}
             />
             <SplitText 
-              text="Reddy"
+              text=" Reddy"
               className="text-[var(--text-color)] font-bold"
               delay={0.1}
               animationDelay={0.8} // Nikilesh has 8 letters * 0.1 delay
