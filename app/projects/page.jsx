@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaInfoCircle, FaSearch, FaFilter } from 'react-icons/fa';
 import Image from 'next/image';
-import { projects } from '../data/projects';
-import ProjectDetailModal from '../components/ProjectDetailModal';
+import { projects } from '../../data/projects';
+import ProjectDetailModal from '../../components/ProjectDetailModal';
 
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(null);
