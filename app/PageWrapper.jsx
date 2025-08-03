@@ -5,8 +5,6 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import PreLoader from './components/PreLoader';
 import Footer from './components/Footer';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 export default function PageWrapper({ children }) {
   const pathname = usePathname();
@@ -21,8 +19,10 @@ export default function PageWrapper({ children }) {
     document.documentElement.setAttribute('data-theme', savedTheme);
     setIsThemeLoaded(true);
 
-    // Initialize AOS after a short delay to improve FCP
-    const aosTimer = setTimeout(() => {
+    // Dynamically load AOS after a short delay to improve FCP
+    const aosTimer = setTimeout(async () => {
+      const AOS = (await import('aos')).default;
+      await import('aos/dist/aos.css');
       AOS.init({
         duration: 800,
         easing: 'ease-out',

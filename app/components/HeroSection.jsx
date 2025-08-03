@@ -1,10 +1,9 @@
 'use client';
-import SplitText from './ui/SplitText';
+import dynamic from 'next/dynamic';
+const SplitText = dynamic(() => import('./ui/SplitText'));
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FaGithub, FaLinkedin, FaTwitter, FaDownload, FaWhatsapp, FaInstagram } from 'react-icons/fa';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -12,12 +11,13 @@ const HeroSection = () => {
   const [introComplete, setIntroComplete] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIntroComplete(true), 1700);
+    // shorter delay so animations start almost immediately
+    const timer = setTimeout(() => setIntroComplete(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <header id="home" className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-24 sm:pt-20">
+    <header id="home" className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-24  ${introComplete ? 'pt-20 sm:pt-12' : 'pt-0 sm:pt-20'}`}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--card-bg)] via-transparent to-transparent opacity-40" />
 
@@ -27,7 +27,7 @@ const HeroSection = () => {
             layoutId="profile-picture"
             className={`mx-auto w-40 h-40 rounded-full relative group ${introComplete ? '' : 'mt-48 mb-24'}`}
             initial={{ scale: 1.3 }}
-            animate={{ scale: introComplete ? 1 : 1.3, transition: { duration: 0.8 ,ease:'backInOut',stiffness:100,damping:10}}}
+            animate={{ scale: introComplete ? 1 : 1.3, transition: { duration: 0.4 ,ease:'backInOut',stiffness:100,damping:10}}}
           > 
             {/* Outer glow effect */}
             <div
@@ -44,27 +44,31 @@ const HeroSection = () => {
                 alt="Profile picture of Nikilesh Reddy T, Full Stack Developer and AI Enthusiast"
                 width={160}
                 height={160}
+                sizes="(max-width: 640px) 160px, 200px"
+                fetchPriority="high"
                 className="w-full h-full rounded-full object-cover shadow-[0_0_15px_rgba(var(--neon-rgb),0.5)]"
                 priority
               />
             </div>
           </motion.div>
 
-          <motion.h1 layoutId="name" className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight flex flex-wrap justify-center items-baseline gap-x-2 mt-48 mb-24"
+          <motion.h1 layoutId="name" className="text-[45px] sm:text-7xl lg:text-8xl font-bold tracking-tight flex flex-wrap justify-center items-baseline gap-x-2 mt-48 mb-24"
             initial={{ scale: 1.2 }}
-            animate={{ scale: introComplete ? 1 : 1.2, transition: { duration: 0.8 ,ease:'backInOut', delay:0.4} }}>
+            animate={{ scale: introComplete ? 1 : 1.1, transition: { duration: 0.8 ,ease:'backInOut', delay:0.4} }}>
             <SplitText 
               text="Nikilesh"
               className="text-[var(--neon-color)] font-extrabold"
-              delay={0.1}
+              delay={0.05}
             />
             <SplitText 
               text=" Reddy"
               className="text-[var(--text-color)] font-bold"
-              delay={0.1}
-              animationDelay={0.8} // Nikilesh has 8 letters * 0.1 delay
+              delay={0.05}
+              animationDelay={0.4} // adjusted for 0.05s per letter
             />
           </motion.h1>
+          {/* Hidden duplicate heading for early LCP */}
+          <h1 className="absolute top-0 left-1/2 -translate-x-1/2 text-5xl sm:text-7xl lg:text-8xl font-bold opacity-0 pointer-events-none select-none">Nikilesh&nbsp;Reddy</h1>
 
           {/* Role */}
           <div
