@@ -6,6 +6,7 @@ import { FaGithub, FaLinkedin, FaTwitter, FaDownload, FaWhatsapp, FaInstagram } 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const HeroSection = () => {
   const [introComplete, setIntroComplete] = useState(false);
@@ -38,10 +39,13 @@ const HeroSection = () => {
             />
             {/* Profile image */}
             <div className="relative rounded-full p-[1px] bg-[var(--neon-color)] z-[3]">
-              <img
+              <Image
                 src="/profile.jpg"
-                alt="Profile picture of Nikilesh"
+                alt="Profile picture of Nikilesh Reddy T, Full Stack Developer and AI Enthusiast"
+                width={160}
+                height={160}
                 className="w-full h-full rounded-full object-cover shadow-[0_0_15px_rgba(var(--neon-rgb),0.5)]"
+                priority
               />
             </div>
           </motion.div>

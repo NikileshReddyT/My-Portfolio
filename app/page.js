@@ -2,14 +2,18 @@
 import Image from "next/image";
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import EducationSection from './components/EducationSection';
-import SkillsSection from './components/SkillsSection';
-import ProjectsSection from './components/ProjectsSection';
-import ContactSection from './components/ContactSection';
-import ThemeToggle from './components/ThemeToggle';
-import ExperienceSection from './components/ExperienceSection';
 import { motion, AnimatePresence } from 'framer-motion';
-import ChatBot from "./components/ChatBot";
+import dynamic from 'next/dynamic';
+
+// Dynamically import components to reduce initial bundle size
+const EducationSection = dynamic(() => import('./components/EducationSection'));
+const SkillsSection = dynamic(() => import('./components/SkillsSection'));
+const ProjectsSection = dynamic(() => import('./components/ProjectsSection'));
+const ContactSection = dynamic(() => import('./components/ContactSection'));
+const ThemeToggle = dynamic(() => import('./components/ThemeToggle'));
+const ExperienceSection = dynamic(() => import('./components/ExperienceSection'));
+const PreviewSections = dynamic(() => import('./components/PreviewSections'));
+const ChatBot = dynamic(() => import('./components/ChatBot'), { ssr: false });
 
 export default function Home() {
   return (
@@ -28,6 +32,7 @@ export default function Home() {
           <ExperienceSection />
           <SkillsSection />
           <ProjectsSection />
+          <PreviewSections />
           <ContactSection />
         </main>
         {/* <ThemeToggle /> */}

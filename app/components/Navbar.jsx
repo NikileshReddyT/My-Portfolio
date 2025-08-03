@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
-import { Link } from 'react-scroll';
+import Link from 'next/link';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 const Navbar = () => {
@@ -11,12 +11,12 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
-    { name: 'Home', to: 'home', offset: 0 },
-    { name: 'Education', to: 'education', offset: -100 },
-    { name: 'Experience', to: 'experience', offset: -60 },
-    { name: 'Skills', to: 'skills', offset: -50 },
-    { name: 'Projects', to: 'projects', offset: -70 },
-    { name: 'Contact', to: 'contact', offset: -150 },
+    { name: 'Home', to: '/#home', offset: 0 },
+    { name: 'Education', to: '/#education', offset: -100 },
+    { name: 'Experience', to: '/#experience', offset: -60 },
+    { name: 'Skills', to: '/#skills', offset: -50 },
+    { name: 'Projects', to: '/#projects', offset: -70 },
+    { name: 'Testimonials', path: '/testimonials' },
   ];
 
   useEffect(() => {
@@ -27,10 +27,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleSetActive = (to) => {
-    setActiveSection(to);
-  };
 
   return (
     <motion.nav
@@ -47,15 +43,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link
-              to="home"
-              spy={true}
-              smooth={true}
-              duration={500}
-              offset={0}
-              className="cursor-pointer"
-              onSetActive={handleSetActive}
-            >
+            <Link href="/#home" className="cursor-pointer">
               Nikilesh's Portfolio
             </Link>
           </motion.div>
@@ -65,14 +53,8 @@ const Navbar = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                to={item.to}
-                spy={true}
-                smooth={true}
-                offset={item.offset + 20}
-                duration={500}
-                onSetActive={handleSetActive}
-                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold ${activeSection === item.to ? '!text-[var(--neon-color)] font-black' : ''
-                  }`}
+                href={item.path || item.to}
+                className={`cursor-pointer text-[var(--text-color)] hover:text-[var(--neon-color)] transition-colors font-bold`}
               >
                 {item.name}
               </Link>
@@ -142,16 +124,9 @@ const Navbar = () => {
                 }}
               >
                 <Link
-                  to={item.to}
-                  spy={true}
-                  smooth={true}
-                  offset={item.offset}
-                  duration={500}
-                  onSetActive={handleSetActive}
+                  href={item.path || item.to}
                   className="cursor-pointer block text-[var(--text-color)] hover:text-[var(--neon-color)] transition-all font-medium transform hover:scale-110 px-4 py-2 rounded-md hover:bg-[var(--hover-bg)]"
-                  activeClass="!text-[var(--neon-color)] font-black text-lg"
-                  onClick={() => setIsOpen(false)}
-                >
+                  onClick={() => setIsOpen(false)} >
                   {item.name}
                 </Link>
               </motion.div>

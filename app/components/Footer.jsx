@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaHeart } from 'react-icons/fa';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -37,6 +38,11 @@ const Footer = () => {
             <FaHeart className="inline-block w-4 h-4" />
           </motion.span>
         </p>
+        <div className="text-center mt-4">
+          <Link href="/admin" className="text-sm text-gray-400 hover:text-[var(--neon-color)] transition-colors">
+            Admin
+          </Link>
+        </div>
       </motion.div>
     </footer>
   );
