@@ -17,12 +17,12 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <header id="home" className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-24  ${introComplete ? 'pt-20 sm:pt-12' : 'pt-0 sm:pt-20'}`}>
+    <header id="home" className={`min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8`}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-[var(--card-bg)] via-transparent to-transparent opacity-40" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-6">
+        <div className="text-center space-y-6 mt-12">
           <motion.div
             layoutId="profile-picture"
             className={`mx-auto w-40 h-40 rounded-full relative group ${introComplete ? '' : 'mt-48 mb-24'}`}
