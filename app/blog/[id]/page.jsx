@@ -121,8 +121,9 @@ const BlogPostPage = ({ params }) => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="pb-16"
         >
-          <h1 className='text-3xl md:text-5xl font-black mb-8'>{post.title}</h1>
-          <div className="prose prose-lg max-w-none prose-invert prose-headings:text-[var(--text-color)] prose-p:text-gray-300 prose-a:text-[var(--neon-color)] prose-a:hover:text-opacity-80 prose-blockquote:border-[var(--neon-color)] prose-blockquote:text-gray-300 prose-strong:text-white prose-code:text-[var(--neon-color)] prose-pre:bg-gray-900/50 prose-pre:rounded-lg">
+          <h1 className='text-2xl md:text-4xl font-black mb-8'>{post.title}</h1>
+         
+          <div className="border border-white/40 rounded-lg p-4 prose prose-lg max-w-none prose-invert prose-headings:text-[var(--text-color)] prose-p:text-gray-300 prose-a:text-[var(--neon-color)] prose-a:hover:text-opacity-80 prose-blockquote:border-[var(--neon-color)] prose-blockquote:text-gray-300 prose-strong:text-white prose-code:text-[var(--neon-color)] prose-pre:bg-gray-900/50 prose-pre:rounded-lg">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
