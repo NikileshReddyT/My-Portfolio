@@ -99,7 +99,7 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--text-color)]">
-      <main className="w-full max-w-4xl mx-auto px-3 sm:px-4">
+      <main className="w-full max-w-6xl mx-auto px-3 sm:px-4">
         <header className="pt-8 sm:pt-12 pb-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -255,6 +255,9 @@ const BlogPostPage = () => {
                 /* Ensure content doesn't shrink */
                 .prose > * {
                   flex-shrink: 0;
+                }
+                .scrollbar-hide {
+                  overflow-x: auto;
                 }
               `}</style>
               <ReactMarkdown

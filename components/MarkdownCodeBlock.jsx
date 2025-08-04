@@ -32,7 +32,7 @@ const MarkdownCodeBlock = ({ node, inline, className, children, ...props }) => {
     // For plain text blocks, use a simple <pre> tag to ensure uniform color.
     if (language === 'text') {
       return (
-        <div className="relative rounded-lg bg-[var(--card-bg)] shadow-lg">
+        <div className="relative text-sm sm:text-base md:text-lg lg:text-xl rounded-lg bg-[var(--card-bg)] shadow-lg">
           <div className="flex items-center justify-between px-4 py-2 ">
             <span className="text-[var(--text-color)] text-sm font-sans font-medium">{language}</span>
             <button
@@ -44,7 +44,7 @@ const MarkdownCodeBlock = ({ node, inline, className, children, ...props }) => {
               {copied ? 'Copied!' : 'Copy'}
             </button>
           </div>
-          <pre className="px-4 pt-2 pb-4 mb-0 overflow-x-auto">
+          <pre className="px-4 pt-2 pb-4 mb-0 overflow-x-auto scrollbar-hide">
             <code className="text-[var(--text-color)] text-base sm:text-lg md:text-xl whitespace-pre-wrap break-words">
               {String(children).replace(/\n$/, '')}
             </code>

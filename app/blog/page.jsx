@@ -145,7 +145,7 @@ const BlogPage = () => {
                       ))}
                     </div>
                     
-                    <Link href={`/blog/${post.id}`} className="inline-flex items-center px-4 py-2 rounded-lg bg-[var(--neon-color)] text-[var(--button-text)] font-bold hover:bg-opacity-90 transition-all duration-300 group">
+                    <Link href={`/blog/${post.id}`} className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[var(--neon-color)] text-[var(--button-text)] font-bold hover:bg-opacity-90 transition-all duration-300 group ">
                       Read Article
                       <FaChevronRight className="ml-2 text-sm transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>

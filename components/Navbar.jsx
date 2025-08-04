@@ -11,11 +11,11 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
-    { name: 'Home', to: '/#home', offset: 0 },
     { name: 'Education', to: '/#education', offset: -100 },
     { name: 'Experience', to: '/#experience', offset: -60 },
     { name: 'Skills', to: '/#skills', offset: -50 },
     { name: 'Projects', to: '/#projects', offset: -70 },
+    { name: 'Blog', path: '/blog' },
     { name: 'Testimonials', path: '/testimonials' },
   ];
 

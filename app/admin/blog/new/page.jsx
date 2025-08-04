@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaSave, FaTimes, FaSpinner } from 'react-icons/fa';
+import { FaSave, FaTimes, FaSpinner, FaMagic } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 
 const InputField = ({ id, label, value, onChange, required = false, placeholder = '' }) => (
@@ -56,7 +56,9 @@ export default function NewBlogPost() {
   const [tags, setTags] = useState('');
   const [published, setPublished] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isEnhancing, setIsEnhancing] = useState(false);
   const [error, setError] = useState(null);
+  const [enhanceError, setEnhanceError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -95,6 +97,35 @@ export default function NewBlogPost() {
     }
   };
 
+  const handleEnhance = async () => {
+    if (!content) {
+      setEnhanceError('Please provide some content to enhance.');
+      return;
+    }
+    setIsEnhancing(true);
+    setEnhanceError(null);
+    try {
+      const response = await fetch('/api/enhance-blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, excerpt, content }),
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Failed to enhance content.');
+      }
+      const { title: enhancedTitle, excerpt: enhancedExcerpt, markdownContent, tags: enhancedTags } = await response.json();
+      setTitle(enhancedTitle);
+      setExcerpt(enhancedExcerpt);
+      setContent(markdownContent);
+      setTags(enhancedTags);
+    } catch (err) {
+      setEnhanceError(err.message);
+    } finally {
+      setIsEnhancing(false);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <motion.div
@@ -127,6 +158,18 @@ export default function NewBlogPost() {
           <InputField id="title" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="My Awesome Blog Post" />
           <TextareaField id="excerpt" label="Excerpt" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} required rows={4} />
           <TextareaField id="content" label="Content (Markdown Supported)" value={content} onChange={(e) => setContent(e.target.value)} required rows={15} />
+            <div className="mt-4">
+              <button 
+                type="button" 
+                onClick={handleEnhance}
+                disabled={isEnhancing || !content}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-300 font-bold hover:bg-purple-600/30 border-2 border-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isEnhancing ? <FaSpinner className="animate-spin" /> : <FaMagic />}
+                {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
+              </button>
+              {enhanceError && <p className="text-red-400 text-sm mt-2">{enhanceError}</p>}
+            </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-6">
