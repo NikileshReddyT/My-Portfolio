@@ -1,50 +1,36 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { NextResponse } from 'next/server';
 
-export async function POST(request) {
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+export async function POST(req) {
   try {
-    const { title, excerpt, content } = await request.json();
+    const { title, excerpt, content } = await req.json();
 
     if (!content?.trim()) {
-      return new Response(JSON.stringify({ error: 'Content is required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ error: 'Content is required' }, { status: 400 });
     }
 
-    if (!process.env.GEMINI_API_KEY) {
-      console.error('GEMINI_API_KEY is not set');
-      throw new Error('Server configuration error: Missing API key');
-    }
-
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `
-      You are an expert content strategist and copywriter. Your task is to enhance a blog post based on its current title, excerpt, and content.
+      You are an expert content strategist and copywriter. Your task is to enhance a blog post based on its current title, excerpt, and content, while strictly preserving its code blocks.
 
       **Instructions:**
 
-      1.  **Enhance the Title:**
-          -   Analyze the provided content and the current title: "${title || 'Untitled'}".
-          -   Goal: Rewrite the title to be catchy, impressive, and exciting. It must create a strong pull for the reader while accurately reflecting the core message of the content.
+      1.  **Enhance Title:** Rewrite the title to be more catchy, impressive, and exciting, while still reflecting the content's core message.
+      2.  **Enhance Excerpt:** Rewrite the excerpt to be a small, simple, and smooth hook (2-3 sentences).
+      3.  **Suggest Tags:** Suggest 3-5 relevant tags as a single comma-separated string.
 
-      2.  **Enhance the Excerpt:**
-          -   Analyze the provided content and the current excerpt: "${excerpt || ''}".
-          -   Goal: Rewrite the excerpt to be small, simple, and smooth. It should be a concise, compelling hook (2-3 sentences) that makes the reader want to continue.
-
-      3.  **Suggest Tags:**
-          -   Analyze the content and suggest between 1 and 5 relevant tags.
-          -   The tags should be concise and relevant to the main topics of the content.
-          -   Format the tags as a single comma-separated string (e.g., "Next.js, Tailwind CSS, AI").
-
-      4.  **Format the Content (DO NOT CHANGE THE TEXT):**
-          -   Take the raw text from the 'content' field and apply markdown styling.
-          -   Use headings, subheadings, bold/italic text, lists, and code blocks where appropriate to improve readability.
-          -   Crucially, you must NOT change the wording, add new information, or remove any text from the content itself.
-          -   If the content already appears to be valid markdown, return it as-is.
+      4.  **Format Content (CRITICAL RULES):**
+          -   Your primary goal is to re-format the provided content into proper markdown WITHOUT altering the text.
+          -   **Code Block Preservation:** You MUST identify any existing code blocks (text surrounded by triple backticks) and preserve them EXACTLY as they are. DO NOT change, add, or remove any text inside these blocks.
+          -   **New Code Blocks:** If you identify any text that looks like code but is NOT already in a code block, you MUST wrap it in triple backticks.
+          -   **Standard Markdown:** Apply standard markdown for headings, subheadings, bold/italic text, and lists where appropriate to improve readability.
+          -   **No New Content:** Do NOT add new information, sentences, or paragraphs. Do NOT remove any existing text. Your only job is to format the existing text.
 
       **Output Format:**
-      Return a single, clean JSON object with four keys: "title", "excerpt", "markdownContent", and "tags". The "tags" value should be a comma-separated string. Do not include any other text or markdown formatting around the JSON object.
+      Return ONLY a single, clean, valid JSON object with four keys: "title", "excerpt", "markdownContent", and "tags". Do not include any other text or markdown formatting around the JSON object.
 
       **Content to Process:**
       ---
@@ -56,29 +42,27 @@ export async function POST(request) {
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    const text = response.text();
+    const text = await response.text();
 
-    // Clean the response to ensure it's valid JSON
-    const cleanedText = text.replace(/```json|```/g, '').trim();
-    const jsonResponse = JSON.parse(cleanedText);
+    // The AI's response might include markdown formatting or extra text.
+    // We need to extract the raw JSON string.
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
 
-    return new Response(JSON.stringify(jsonResponse), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    if (!jsonMatch) {
+      console.error("AI Response (No JSON Match):", text);
+      throw new Error("No valid JSON object found in the AI response.");
+    }
 
+    const jsonString = jsonMatch[0];
+    try {
+      const data = JSON.parse(jsonString);
+      return NextResponse.json(data);
+    } catch (error) {
+      console.error('Failed to parse JSON. Raw AI response snippet:', jsonString);
+      throw new Error('The AI returned a malformed response. Please try again.');
+    }
   } catch (error) {
-    console.error('Error enhancing blog content:', {
-      message: error.message,
-      stack: error.stack,
-    });
-
-    return new Response(JSON.stringify({
-      error: 'Failed to enhance content. Please try again.',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined,
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error('Error in /api/enhance-blog:', error);
+    return NextResponse.json({ error: error.message || 'Failed to enhance content' }, { status: 500 });
   }
 }
