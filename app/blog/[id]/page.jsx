@@ -112,13 +112,13 @@ const BlogPostPage = () => {
                 className="text-[var(--neon-color)] hover:opacity-80 flex items-center gap-1.5 transition-colors"
               >
                 <FaArrowLeft className="text-xs" />
-                <span>Back to Blog</span>
+                <span className="hidden sm:block">Back to Blog</span>
               </Link>
               <span className="mx-2 text-gray-500">/</span>
               <span className="text-gray-400 truncate">{post.title}</span>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm text-gray-400">
+            <div className=" hidden sm:flex flex-col sm:flex-row sm:items-center gap-3 text-sm text-gray-400">
               <div className="flex items-center">
                 <FaCalendar className="mr-1.5 text-xs" />
                 <time dateTime={post.created_at}>
@@ -136,7 +136,7 @@ const BlogPostPage = () => {
               </div>
             </div>
             <div className="sticky bottom-0 left-0 right-0 mt-4 bg-[var(--card-bg)] border-b border-white/10 p-3 flex flex-col items-center justify-between">
-            <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-center text-[var(--neon-color)]'>{post.title}</h1>
+            <h1 className='text-xl sm:text-2xl md:text-3xl font-bold text-center text-[var(--neon-color)]'>{post.title}</h1>
               
             </div>
           </motion.div>
