@@ -99,7 +99,7 @@ const BlogPostPage = () => {
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--text-color)]">
-      <main className="w-full max-w-6xl mx-auto px-3 sm:px-4">
+      <main className="w-full max-w-6xl mx-auto md:px-3 ">
         <header className="pt-8 sm:pt-12 pb-4">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
