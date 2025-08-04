@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaQuoteLeft, FaTimes, FaPaperPlane, FaCheckCircle, FaPenFancy } from 'react-icons/fa';
+import { FaWandMagicSparkles, FaSpinner } from 'react-icons/fa6';
 import SimpleNavbar from '../../components/SimpleNavbar';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Main Page Component
 const TestimonialsPage = () => {
@@ -11,6 +13,10 @@ const TestimonialsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedText, setGeneratedText] = useState('');
+  const [showAIOptions, setShowAIOptions] = useState(false);
+  const contentTextareaRef = useRef(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -45,7 +51,7 @@ const TestimonialsPage = () => {
 
   
 
-  return (
+    return (
     <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-500 font-sans">
       <SimpleNavbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -55,12 +61,13 @@ const TestimonialsPage = () => {
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
           className="text-5xl md:text-6xl font-extrabold text-center mb-16 text-[var(--neon-color)] tracking-tighter"
         >
-          Testimonials for Nikilesh Reddy
+          Testimonials<span className="hidden text-[var(--neon-color)] md:inline"> for Nikilesh Reddy</span>
         </motion.h1>
 
         {isLoading ? (
           <div className="text-center text-lg">Loading testimonials...</div>
         ) : (
+          testimonials.length > 0 ? (
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             initial="hidden"
@@ -69,10 +76,13 @@ const TestimonialsPage = () => {
               visible: { transition: { staggerChildren: 0.15 } }
             }}
           >
-            {testimonials.map((testimonial) => (
+            { testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
           </motion.div>
+          ) : (
+            <div className="text-center text-lg md:text-2xl lg:text-3xl w-full h-full flex items-center justify-center">Be the first to share your testimonial!</div>
+          )
         )}
         
         
@@ -159,6 +169,63 @@ const AddTestimonialModal = ({ onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showAIOptions, setShowAIOptions] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedText, setGeneratedText] = useState('');
+  const [tone, setTone] = useState('professional');
+  const contentTextareaRef = useRef(null);
+
+  const generateTestimonial = async (selectedTone = 'professional') => {
+    if (!name.trim()) {
+      setError('Please enter your name first');
+      return;
+    }
+
+    setIsGenerating(true);
+    setError('');
+    setTone(selectedTone);
+    
+    try {
+      const response = await fetch('/api/generate-testimonial', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          company: company || '',
+          tone: selectedTone
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error('API Error:', data);
+        const errorMessage = data.error || 
+                           (data.details ? `Server error: ${data.details}` : 'Failed to generate testimonial');
+        throw new Error(errorMessage);
+      }
+      
+      if (!data.text) {
+        throw new Error('No text was generated. Please try again.');
+      }
+      
+      setGeneratedText(data.text);
+      setContent(data.text);
+      
+      // Focus the textarea after generation
+      setTimeout(() => {
+        contentTextareaRef.current?.focus();
+      }, 100);
+      
+    } catch (err) {
+      console.error('Error generating testimonial:', err);
+      setError(err.message || 'Failed to generate testimonial. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -218,7 +285,7 @@ const AddTestimonialModal = ({ onClose }) => {
           ) : (
             <motion.div key="form" exit={{ opacity: 0, x: -50 }} className="p-8">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold text-white">Share Your Feedback</h2>
+                <h2 className="text-3xl font-bold text-white">Share Your Tributes</h2>
                 <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors rounded-full p-2 -mr-2 -mt-2">
                   <FaTimes size={24} />
                 </button>
@@ -232,30 +299,117 @@ const AddTestimonialModal = ({ onClose }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all"
-                    placeholder="e.g., Jane Doe"
+                    placeholder="e.g., Manasvi"
                   />
                 </div>
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">Company / Position (Optional)</label>
+                  <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">Relation / Company / Position (Optional)</label>
                   <input
                     type="text"
                     id="company"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all"
-                    placeholder="e.g., CEO at TechCorp"
+                    placeholder="e.g., Professor at KLU"
                   />
                 </div>
                 <div>
-                  <label htmlFor="content" className="block text-sm font-medium text-gray-300 mb-2">Your Message</label>
-                  <textarea
-                    id="content"
-                    rows="5"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all resize-none"
-                    placeholder="What did you think of my work?"
-                  ></textarea>
+                  <div className="relative">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor="content" className="block text-sm font-medium text-gray-300">Your Message</label>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setShowAIOptions(!showAIOptions)}
+                          disabled={isGenerating}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md border border-[var(--neon-color)] text-[var(--neon-color)] hover:bg-[var(--neon-color)] hover:bg-opacity-10 transition-all disabled:opacity-50"
+                        >
+                          {isGenerating ? (
+                            <FaSpinner className="animate-spin" />
+                          ) : (
+                            <FaWandMagicSparkles className="text-sm text-[var(--text-color)]" />
+                          )}
+                          <span>Generate with AI</span>
+                        </button>
+                        
+                        <AnimatePresence>
+                          {showAIOptions && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              className="absolute right-0 mt-2 w-48 bg-black rounded-lg shadow-xl border border-white/10 overflow-hidden z-10"
+                            >
+                              <p className="px-4 py-2 text-xs text-gray-400 border-b border-white/10">Generate {tone} testimonial</p>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setTone('professional');
+                                  generateTestimonial('professional');
+                                  setShowAIOptions(false);
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-white/5 transition-colors"
+                                disabled={isGenerating}
+                              >
+                                Professional
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setTone('friendly');
+                                  generateTestimonial('friendly');
+                                  setShowAIOptions(false);
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-white/5 transition-colors"
+                                disabled={isGenerating}
+                              >
+                                Friendly
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setTone('enthusiastic');
+                                  generateTestimonial('enthusiastic');
+                                  setShowAIOptions(false);
+                                }}
+                                className="w-full text-left px-4 py-2 text-sm hover:bg-white/5 transition-colors"
+                                disabled={isGenerating}
+                              >
+                                Enthusiastic
+                              </button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                    
+                    <div className="relative">
+                      <textarea
+                        id="content"
+                        ref={contentTextareaRef}
+                        rows="5"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all resize-none pr-10"
+                        placeholder="What did you think of my work?"
+                      />
+                      {isGenerating && (
+                        <div className="absolute right-3 bottom-3 text-[var(--neon-color)]">
+                          <FaSpinner className="animate-spin" />
+                        </div>
+                      )}
+                    </div>
+                    {generatedText && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-2 text-xs text-gray-400 flex items-center gap-2"
+                      >
+                        <FaWandMagicSparkles className="text-[var(--neon-color)]" />
+                        <span>AI-generated text. Feel free to edit as needed!</span>
+                      </motion.div>
+                    )}
+                  </div>
                 </div>
                 {error && <p className="text-red-400 text-sm">{error}</p>}
                 <div className="text-right">
@@ -266,7 +420,7 @@ const AddTestimonialModal = ({ onClose }) => {
                     whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
                     whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Send Feedback'}
+                    {isSubmitting ? 'Submitting...' : 'Send Tributes'}
                     {!isSubmitting && <FaPaperPlane />}
                   </motion.button>
                 </div>

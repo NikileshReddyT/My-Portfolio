@@ -115,9 +115,9 @@ const BlogPage = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   whileHover={{ y: -8 }}
-                  className="bg-[var(--card-bg)] rounded-2xl border border-white/10 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-[var(--neon-color)]/10 transition-all duration-300"
+                  className="bg-[var(--card-bg)] rounded-2xl border border-white/10 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-[var(--neon-color)]/10 transition-all duration-300 flex flex-col"
                 >
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center text-sm text-gray-400">
                         <FaCalendar className="mr-2" />
@@ -137,7 +137,7 @@ const BlogPage = () => {
                       {post.excerpt}
                     </p>
                     
-                    <div className="flex flex-wrap gap-2 mt-4 mb-6">
+                    <div className="flex-grow"></div><div className="flex flex-wrap gap-2 mt-4 mb-6">
                       {post.tags && post.tags.slice(0, 3).map((tag, tagIndex) => (
                         <span key={tagIndex} className="px-3 py-1 text-xs rounded-full bg-[var(--neon-color)]/10 text-[var(--neon-color)] border border-[var(--neon-color)]/30">
                           {tag}
