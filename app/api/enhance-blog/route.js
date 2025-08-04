@@ -22,12 +22,12 @@ export async function POST(req) {
       2.  **Enhance Excerpt:** Rewrite the excerpt to be a small, simple, and smooth hook (2-3 sentences).
       3.  **Suggest Tags:** Suggest 3-5 relevant tags as a single comma-separated string.
 
-      4.  **Format Content (CRITICAL RULES):**
-          -   Your primary goal is to re-format the provided content into proper markdown WITHOUT altering the text.
-          -   **Code Block Preservation:** You MUST identify any existing code blocks (text surrounded by triple backticks) and preserve them EXACTLY as they are. DO NOT change, add, or remove any text inside these blocks.
+      4.  **Proofread and Format Content (CRITICAL RULES):**
+          -   **Proofread for Errors:** In the main text, correct any spelling mistakes, grammatical errors, and capitalization issues to improve clarity and professionalism. This rule does NOT apply to text inside code blocks.
+          -   **Apply Markdown:** Your primary goal is to format the proofread content into proper markdown. Apply standard markdown for headings, subheadings, bold/italic text, and lists where appropriate.
+          -   **Code Block Preservation (DO NOT TOUCH):** You MUST identify any existing code blocks (text surrounded by triple backticks) and preserve them EXACTLY as they are. DO NOT change, add, or remove any text inside these blocks. This is the most important rule.
           -   **New Code Blocks:** If you identify any text that looks like code but is NOT already in a code block, you MUST wrap it in triple backticks.
-          -   **Standard Markdown:** Apply standard markdown for headings, subheadings, bold/italic text, and lists where appropriate to improve readability.
-          -   **No New Content:** Do NOT add new information, sentences, or paragraphs. Do NOT remove any existing text. Your only job is to format the existing text.
+          -   **No New Paragraphs:** Do NOT add new paragraphs or sentences. Your job is to correct and format the existing text, not add to it.
 
       **Output Format:**
       Return ONLY a single, clean, valid JSON object with four keys: "title", "excerpt", "markdownContent", and "tags". Do not include any other text or markdown formatting around the JSON object.
