@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaSave, FaTimes, FaSpinner, FaMagic } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import GenerateAIDialog from '@/components/GenerateAIDialog';
 
 const InputField = ({ id, label, value, onChange, required = false, placeholder = '' }) => (
   <div>
@@ -59,6 +60,10 @@ export default function NewBlogPost() {
   const [isEnhancing, setIsEnhancing] = useState(false);
   const [error, setError] = useState(null);
   const [enhanceError, setEnhanceError] = useState(null);
+  const [idea, setIdea] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generateError, setGenerateError] = useState('');
+  const [isGenerateDialogOpen, setIsGenerateDialogOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -126,8 +131,45 @@ export default function NewBlogPost() {
     }
   };
 
+  const handleGenerate = async () => {
+    if (!idea.trim()) return;
+    setIsGenerating(true);
+    setGenerateError('');
+    try {
+      const response = await fetch('/api/generate-blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idea }),
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Failed to generate content.');
+      }
+      const data = await response.json();
+      setTitle(data.title);
+      setExcerpt(data.excerpt);
+      setContent(data.markdownContent);
+      setTags(data.tags);
+      setIsGenerateDialogOpen(false); // Close dialog on success
+    } catch (err) {
+      setGenerateError(err.message);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="max-w-4xl mx-auto">
+      <GenerateAIDialog
+        isOpen={isGenerateDialogOpen}
+        onClose={() => setIsGenerateDialogOpen(false)}
+        onGenerate={handleGenerate}
+        idea={idea}
+        setIdea={setIdea}
+        isGenerating={isGenerating}
+        generateError={generateError}
+      />
+      <form onSubmit={handleSubmit}>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -149,27 +191,35 @@ export default function NewBlogPost() {
 
       {error && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-red-500/20 border border-red-500 text-red-300 p-4 rounded-lg mb-6">
-          <p>Error: {error}</p>
-        </motion.div>
+        <p>Error: {error}</p>
+      </motion.div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="lg:col-span-2 space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button 
+              type="button" 
+              onClick={() => setIsGenerateDialogOpen(true)}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-blue-600/20 text-blue-300 font-bold hover:bg-blue-600/30 border-2 border-blue-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <FaMagic />
+              Generate with AI
+            </button>
+            <button 
+              type="button" 
+              onClick={handleEnhance}
+              disabled={isEnhancing || !content}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-300 font-bold hover:bg-purple-600/30 border-2 border-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isEnhancing ? <FaSpinner className="animate-spin" /> : <FaMagic />}
+              {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
+            </button>
+          </div>
           <InputField id="title" label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required placeholder="My Awesome Blog Post" />
           <TextareaField id="excerpt" label="Excerpt" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} required rows={4} />
           <TextareaField id="content" label="Content (Markdown Supported)" value={content} onChange={(e) => setContent(e.target.value)} required rows={15} />
-            <div className="mt-4">
-              <button 
-                type="button" 
-                onClick={handleEnhance}
-                disabled={isEnhancing || !content}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-300 font-bold hover:bg-purple-600/30 border-2 border-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isEnhancing ? <FaSpinner className="animate-spin" /> : <FaMagic />}
-                {isEnhancing ? 'Enhancing...' : 'Enhance with AI'}
-              </button>
-              {enhanceError && <p className="text-red-400 text-sm mt-2">{enhanceError}</p>}
-            </div>
+          {enhanceError && <p className="text-red-400 text-sm mt-2">{enhanceError}</p>}
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-6">
@@ -178,5 +228,6 @@ export default function NewBlogPost() {
         </motion.div>
       </div>
     </form>
+    </div>
   );
 }
