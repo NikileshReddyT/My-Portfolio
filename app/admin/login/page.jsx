@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaLock, FaUser, FaSignInAlt } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { FaLock, FaUser } from 'react-icons/fa';
 
 export default function AdminLogin() {
   const [credentials, setCredentials] = useState({
@@ -42,74 +42,63 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black p-4">
       <motion.div 
-        className="w-full max-w-md bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
-        initial={{ opacity: 0, y: -20 }}
+        className="max-w-md w-full neon-card rounded-xl p-8 border border-[var(--card-border)] bg-[var(--card-bg)]"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="bg-gradient-to-r from-purple-900 to-indigo-900 p-8 text-center">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 rounded-full bg-white bg-opacity-20">
-              <FaLock className="text-3xl text-white" />
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Portal</h1>
-          <p className="text-indigo-200">Secure Access Dashboard</p>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[var(--heading-color)] mb-2">Admin Portal</h1>
+          <p className="text-[var(--text-secondary)]">Secure Access Dashboard</p>
         </div>
 
         <div className="p-8">
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label className="block text-gray-300 mb-2 text-sm font-medium" htmlFor="username">
-                Username
-              </label>
+              <label htmlFor="username" className="block text-[var(--text-color)] font-medium mb-2">Username</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaUser className="text-gray-500" />
+                  <FaUser className="text-[var(--text-secondary)]" />
                 </div>
                 <input
                   type="text"
                   id="username"
                   name="username"
+                  className="w-full pl-10 px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] focus:border-[var(--neon-color)] focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-colors text-[var(--text-color)]"
                   value={credentials.username}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="Enter your username"
                   required
                 />
               </div>
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-300 mb-2 text-sm font-medium" htmlFor="password">
-                Password
-              </label>
+              <label htmlFor="password" className="block text-[var(--text-color)] font-medium mb-2">Password</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="text-gray-500" />
+                  <FaLock className="text-[var(--text-secondary)]" />
                 </div>
                 <input
                   type="password"
                   id="password"
                   name="password"
+                  className="w-full pl-10 px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-[var(--card-border)] focus:border-[var(--neon-color)] focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-colors text-[var(--text-color)]"
                   value={credentials.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="Enter your password"
                   required
                 />
               </div>
             </div>
 
             {error && (
-              <div className="mb-6 p-3 rounded-lg bg-red-900 bg-opacity-50 text-red-300 text-sm text-center border border-red-700">
-                <FaLock className="inline mr-2" /> {error}
+              <div className="mb-6 p-3 bg-red-500 bg-opacity-20 border border-red-500 rounded-lg text-red-500 text-center">
+                {error}
               </div>
             )}
 
             <motion.button
               type="submit"
-              className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center shadow-lg"
+              className="w-full py-3 px-4 rounded-lg bg-[var(--neon-color)] text-white font-medium hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center shadow-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isLoading}
@@ -124,14 +113,14 @@ export default function AdminLogin() {
                 </>
               ) : (
                 <>
-                  <FaLock className="mr-2" /> Sign In
+                  <FaSignInAlt className="mr-2" /> Sign In
                 </>
               )}
             </motion.button>
           </form>
 
-          <div className="mt-8 text-center text-xs text-gray-500 border-t border-gray-700 pt-6">
-            <p> 2025 Admin Portal. All rights reserved.</p>
+          <div className="mt-8 text-center text-xs text-[var(--text-secondary)] border-t border-[var(--card-border)] pt-6">
+            <p> 2025 Nikilesh Reddy. All rights reserved.</p>
             <p className="mt-1">Unauthorized access is prohibited.</p>
           </div>
         </div>
