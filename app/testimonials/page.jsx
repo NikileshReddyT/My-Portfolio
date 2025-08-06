@@ -65,7 +65,10 @@ const TestimonialsPage = () => {
         </motion.h1>
 
         {isLoading ? (
-          <div className="text-center text-lg">Loading testimonials...</div>
+          <div className="h-full w-full flex flex-col items-center justify-center gap-4">
+            <div className="w-12 h-12 border-4 border-[var(--neon-color)] border-t-transparent rounded-full animate-spin"></div>
+            <div className="text-lg text-gray-400">Loading testimonials...</div>
+          </div>
         ) : (
           testimonials.length > 0 ? (
           <motion.div 
