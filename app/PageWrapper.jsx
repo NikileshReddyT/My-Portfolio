@@ -5,6 +5,20 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import PreLoader from '../components/PreLoader';
 import Footer from '../components/Footer';
+import dynamic from 'next/dynamic';
+
+// Dynamically import MeshGradientBackground to avoid SSR issues
+const MeshGradientBackground = dynamic(() => import('../components/ui/SimpleMeshGradient'), {
+  ssr: false,
+  loading: () => (
+    <div 
+      className="fixed inset-0 -z-10"
+      style={{ 
+        background: 'linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(12, 6, 6, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)'
+      }}
+    />
+  ),
+});
 
 export default function PageWrapper({ children }) {
   const pathname = usePathname();
@@ -82,25 +96,41 @@ export default function PageWrapper({ children }) {
   };
 
   if (!isThemeLoaded) {
-    return null;
+    return (
+      <div 
+        className="fixed inset-0 min-h-screen" 
+        style={{ 
+          background: 'linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(12, 6, 6, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)'
+        }}
+      />
+    );
   }
 
   return (
-    <AnimatePresence mode="wait">
-      {showPreloader && isLoading ? (
-        <PreLoader key="preloader" onLoadingComplete={handleLoadingComplete} theme={currentTheme} />
-      ) : (
-        <motion.main 
-          key="main" 
-          className="min-h-screen bg-black"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          {children}
-          <Footer />
-        </motion.main>
-      )}
-    </AnimatePresence>
+    <>
+      {/* Always present background to prevent white flash */}
+      <MeshGradientBackground />
+      
+      <AnimatePresence>
+        {showPreloader && isLoading && (
+          <PreLoader key="preloader" onLoadingComplete={handleLoadingComplete} theme={currentTheme} />
+        )}
+      </AnimatePresence>
+      
+      <AnimatePresence>
+        {(!showPreloader || !isLoading) && (
+          <motion.main 
+            key="main" 
+            className="min-h-screen relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+          >
+            {children}
+            <Footer />
+          </motion.main>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

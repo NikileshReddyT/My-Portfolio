@@ -7,6 +7,15 @@ import { useEffect, useState } from 'react';
 const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
   const [showContent, setShowContent] = useState(false);
 
+  // Theme-based gradient backgrounds (same as SimpleMeshGradient)
+  const themeGradients = {
+    dark: 'radial-gradient(ellipse 150% 100% at 25% 20%, rgba(255, 0, 51, 0.06) 0%, transparent 65%), radial-gradient(ellipse 120% 80% at 75% 85%, rgba(255, 51, 102, 0.04) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 100%, rgba(204, 0, 51, 0.03) 0%, transparent 55%), linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(8, 8, 12, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)',
+    cyberpunk: 'radial-gradient(ellipse 150% 100% at 25% 20%, rgba(0, 255, 157, 0.06) 0%, transparent 65%), radial-gradient(ellipse 120% 80% at 75% 85%, rgba(51, 255, 170, 0.04) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 100%, rgba(0, 204, 122, 0.03) 0%, transparent 55%), linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(2, 12, 8, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)',
+    sunset: 'radial-gradient(ellipse 150% 100% at 25% 20%, rgba(255, 107, 107, 0.06) 0%, transparent 65%), radial-gradient(ellipse 120% 80% at 75% 85%, rgba(255, 142, 142, 0.04) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 100%, rgba(255, 71, 87, 0.03) 0%, transparent 55%), linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(12, 6, 6, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)',
+    ocean: 'radial-gradient(ellipse 150% 100% at 25% 20%, rgba(0, 208, 255, 0.06) 0%, transparent 65%), radial-gradient(ellipse 120% 80% at 75% 85%, rgba(51, 217, 255, 0.04) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 100%, rgba(0, 168, 204, 0.03) 0%, transparent 55%), linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(4, 8, 12, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)',
+    synthwave: 'radial-gradient(ellipse 150% 100% at 25% 20%, rgba(205, 122, 39, 0.06) 0%, transparent 65%), radial-gradient(ellipse 120% 80% at 75% 85%, rgba(230, 149, 74, 0.04) 0%, transparent 60%), radial-gradient(ellipse 100% 60% at 50% 100%, rgba(181, 105, 31, 0.03) 0%, transparent 55%), linear-gradient(145deg, rgba(0, 0, 0, 0.98) 0%, rgba(12, 8, 4, 0.96) 50%, rgba(0, 0, 0, 0.98) 100%)',
+  };
+
   useEffect(() => {
     setShowContent(true);
     const timer = setTimeout(() => {
@@ -25,7 +34,10 @@ const PreLoader = ({ onLoadingComplete, theme = 'sunset' }) => {
         opacity: 0,
         transition: { duration: 0.5 }
       }}
-      className={`fixed inset-0 z-[100] flex items-center justify-center ${theme === 'sunset' ? 'bg-[var(--card-bg)]' : 'bg-[var(--light-card-bg)]'}`}
+      className="fixed inset-0 z-[100] flex items-center justify-center"
+      style={{ 
+        background: themeGradients[theme] || themeGradients.sunset
+      }}
       data-theme={theme}
     >
       <div className="flex flex-col items-center gap-8">
