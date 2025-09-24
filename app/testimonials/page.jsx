@@ -72,7 +72,7 @@ const TestimonialsPage = () => {
         ) : (
           testimonials.length > 0 ? (
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             initial="hidden"
             animate="visible"
             variants={{ 
@@ -95,10 +95,10 @@ const TestimonialsPage = () => {
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40">
         <motion.button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-3 bg-[var(--card-bg)] text-white font-bold rounded-full shadow-2xl shadow-black/50 border border-[var(--neon-color)] border-4 hover:bg-[var(--neon-color)] hover:text-white backdrop-blur-lg"
+          className="flex items-center gap-3 px-5 py-3 bg-white/10 text-white font-semibold rounded-full shadow-lg border border-white/15 backdrop-blur-md hover:border-[var(--neon-color)]/50 hover:shadow-[0_8px_30px_rgba(var(--neon-rgb),0.25)] transition-all"
           animate={{
             scale: isScrolling ? 0.95 : 1,
-            padding: isScrolling ? '0.9rem 1.8rem' : '1rem 2rem'
+            padding: isScrolling ? '0.85rem 1.6rem' : '0.95rem 1.9rem'
           }}
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
           whileHover={{ scale: 1.05 }}
@@ -126,41 +126,52 @@ const TestimonialsPage = () => {
   );
 };
 
-// New Testimonial Card Design
+// New Testimonial Card Design (premium, balanced, glassmorphism)
 const TestimonialCard = ({ testimonial }) => {
+  const initial = (testimonial?.name || 'N').charAt(0).toUpperCase();
   return (
-    <motion.div
-      variants={{ 
-        hidden: { opacity: 0, y: 50, scale: 0.95 },
-        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } }
+    <motion.article
+      variants={{
+        hidden: { opacity: 0, y: 26, scale: 0.98 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
       }}
-      className="relative group p-6 bg-[var(--card-bg)] rounded-2xl border border-[var(--neon-color)] overflow-hidden"
-      style={{'--glow-color': 'var(--neon-color-transparent-heavy)'}}
+      whileHover={{ y: -6, scale: 1.01 }}
+      className="relative group"
     >
-      <motion.div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ 
-          background: 'radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent 40%)'
-        }}
-      />
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="border-b border-white/10 pb-4  mb-auto flex items-center gap-2">
-          {/* avatar */}
-          <div className="w-8 h-8 rounded-full bg-[var(--neon-color)] text-white flex items-center justify-center mb-2">
-            <span className="text-lg font-semibold">
-              {testimonial.name[0]}
-            </span>
+      {/* Professional card with subtle border */}
+      <div className="rounded-2xl bg-white/5 w-[100%] backdrop-blur-xl border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.2)] group-hover:border-[var(--neon-color)]/30 group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300 p-6 min-h-[280px] h-full flex flex-col gap-5 relative">
+
+        {/* Professional Header */}
+        <header className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-full bg-[var(--card-bg)] border border-white/15 text-[var(--neon-color)] flex items-center justify-center font-bold text-lg shadow-sm">
+            {initial}
           </div>
-          <div className="flex flex-col">
-            <p className="font-bold text-white text-xl">{testimonial.name}</p>
-            {testimonial.company && <p className="text-base text-gray-400 ">{testimonial.company}</p>}
+          <div className="min-w-0 flex-1">
+            <h3 className="text-white font-bold text-lg leading-tight truncate">{testimonial.name}</h3>
+            {testimonial.company && (
+              <p className="text-sm text-gray-400 truncate mt-0.5">{testimonial.company}</p>
+            )}
           </div>
-        </div>
-        <div className="flex flex-row gap-4 my-2">
-          <FaQuoteLeft className="text-5xl text-[var(--neon-color)] opacity-30 my-2" />
-          <p className="flex-grow text-lg italic text-gray-300 leading-relaxed my-8">{testimonial.message}</p>
-        </div>
+        </header>
+
+          {/* Divider */}
+          <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+          {/* Body with integrated opening/closing quotes */}
+          <div className="relative">
+            <p
+              lang="en"
+              className="text-[14px] italic text-gray-200 leading-[34px] font-medium before:content-['“'] before:text-[var(--neon-color)] before:opacity-90 before:mr-2 before:text-2xl before:font-serif before:align-top after:content-['”'] after:text-[var(--neon-color)] after:opacity-60 after:ml-2 after:text-2xl after:font-serif after:align-bottom"
+              style={{ hyphens: 'auto', WebkitHyphens: 'auto', msHyphens: 'auto', textWrap: 'pretty', textAlignLast: 'left' }}
+            >
+              {testimonial.message}
+            </p>
+          </div>
+
+          {/* Bottom accent */}
+          <div className="mt-2 h-8 rounded-xl bg-gradient-to-r from-[var(--neon-color)]/0 via-[var(--neon-color)]/10 to-[var(--neon-color)]/0 blur-xl opacity-70 group-hover:opacity-90 transition-opacity" />
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
@@ -302,7 +313,7 @@ const AddTestimonialModal = ({ onClose }) => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all"
-                    placeholder="e.g., Manasvi"
+                    placeholder="e.g., Sundar Pichai"
                   />
                 </div>
                 <div>
@@ -313,7 +324,7 @@ const AddTestimonialModal = ({ onClose }) => {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     className="w-full bg-black/30 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[var(--neon-color)] transition-all"
-                    placeholder="e.g., Professor at KLU"
+                    placeholder="e.g., CEO of Google"
                   />
                 </div>
                 <div>
